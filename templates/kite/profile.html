@@ -45,6 +45,8 @@
            {% for transaction in transactions %}
                <div class="{{ transaction['operation'] }}">
 
+                <hr>
+
                 {{ transaction['_id'] }} confirmed. Ksh. {{ transaction['amount'] }} transacter to
                 {{ transaction['walletNo'] }} on {{ transaction['timeStamp'] }}. New Balance is {{ transaction['balance'] }}
 
