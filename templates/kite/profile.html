@@ -40,14 +40,13 @@
           <div class="col-md-9 chat-body">
             <p align="center" class="h3">Transactions</p>
 
-
            {% if transactions %}
 
            {% for transaction in transactions %}
                <div class="{{ transaction['operation'] }}">
 
-                {{ transaction['_id'] }} confirmed. Ksh. {{ transaction['amount'] }} transacter from
-                for Account {{ transaction['walletNo'] }} on {{ transaction['timeStamp'] }}. New Balance is {{ transaction['balance'] }}
+                {{ transaction['_id'] }} confirmed. Ksh. {{ transaction['amount'] }} transacter to
+                {{ transaction['walletNo'] }} on {{ transaction['timeStamp'] }}. New Balance is {{ transaction['balance'] }}
 
                </div>
            {% endfor %}

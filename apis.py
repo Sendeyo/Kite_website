@@ -99,8 +99,6 @@ def GetAllTransactions(phoneNo, password):
 
 # res = GetAllTransactions("254715232942", "1234")
 # print(res.text)
-        
-
 
 
 def WalletToWallet(phoneNo, password, data):

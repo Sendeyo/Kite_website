@@ -188,6 +188,7 @@ def SendToWallet():
     else:
         return redirect("/")
 
+
 @app.route("/Top Up", methods=["GET", "POST"])
 def ChooseMethod():
     if "userdata" in session:
