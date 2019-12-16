@@ -1,0 +1,48 @@
+{% extends "structureadmin.html" %}
+{% block body %} 
+
+<body id="page-top">
+  <!-- app Bar -->
+  {% include "includes/_adminNav.html" %}
+
+  <div id="wrapper">
+    <!-- Sidebar -->
+    {% include "widgets/sideBar.html" %}
+
+    <div id="content-wrapper">
+
+      <div class="container-fluid">
+        
+  <!-- Logout Modal-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+   <body>
+    <div class="container">
+     <div class="table-responsive">
+      <h1 align="center">CSV File to HTML Table Using AJAX jQuery</h1>
+      <br />
+      <div align="center">
+       <button type="button" name="load_data" id="load_data" class="btn btn-info">Load Data</button>
+      </div>
+      <br />
+      <p>
+          thi is something intresting
+      </p>
+      <div id="employee_table">
+      </div>
+     </div>
+    </div>
+   </body>
+  
+  <script>
+
+$(document).ready(function(){
+ $("button").click(function(){
+     $("#employee_table").text("this is awesome");
+ }
+ );      
+});
+
+  </script>
+</body>
+{% endblock %}

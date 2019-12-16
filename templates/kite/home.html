@@ -1,0 +1,48 @@
+{% extends "structureadmin.html" %}
+{% include "includes/_defaultNav.html" %}
+{% block body %}
+
+
+<div class="container-fluid Home">
+    <div class="padHome">
+        <div>
+                    <!-- Icon Cards-->
+        <div class="row">
+                {% for tile in tiles%}
+                <div class="col-xl-3 col-l-4 col-md-4 col-sm-6 col-xs-12 tile" >
+                  <div class="card text-white {{tile['color']}} o-hidden h-100">
+                    <div class="card-body">
+                      <div class="card-body-icon">
+                        <i class="{{tile['icon']}}"></i>
+                      </div>
+                      <div class="h2">{{ tile["name"] }}</div>
+                    </div>
+                    <a class="card-footer text-white clearfix small z-1" href="/home/{{ tile['name'] }}">
+                        <div class="padHome"></div>
+                      <span class="float-left h4">{{ tile["name"] }}</span>
+                      <span class="float-right h4">
+                        <i class="{{tile['icon']}}"></i>&nbsp
+                        <!-- <i class="fas fa-angle-right"></i> -->
+                      </span>
+                    </a>
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid home">
+
+
+<!-- 
+<div class="jumbotron">
+
+        <div class="d-sm-none">xs extra small</div>
+        <div class="d-none d-sm-block d-md-none">sm small</div>
+        <div class="d-none d-md-block d-lg-none">md medium</div>
+        <div class="d-none d-lg-block d-xl-none">ls large</div>
+        <div class="d-none d-xl-block">xl Extra large</div>
+    </div> -->
+{% endblock body%}

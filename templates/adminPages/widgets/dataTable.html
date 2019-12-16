@@ -1,0 +1,87 @@
+<!-- DataTables Example -->
+<div class="card mb-3">
+    <div class="card-header">
+      <i class="fas fa-table"></i>
+      {{ logs[0]}}</div>
+    <div class="card-body">
+      <div class="table-responsive">
+      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+          <thead>
+            <tr>
+              <th>Wallet Number / card</th>
+              <th>Phone Number</th>
+              <th>Ammount</th>
+              <th>Date</th>
+              <th>Call Back</th>
+              <th>View</th>
+            </tr>
+          </thead>
+          <tfoot>
+              <tr>
+                <th>Card / Wallet Number</th>
+                <th>Phone Number / Email</th>
+                <th>Ammount</th>
+                <th>Date</th>
+                <th>Request type</th>
+                <th>View</th>
+              </tr>
+            </tfoot>
+            <tbody>    
+                {% for log in logs[1] %}
+                <tr>
+                    <td>{{ log["metadata"]["walletAccountNo"] }}{{ log["metadata"]["cardNo"] }}</td>
+                    <td>{{ log["metadata"]["phoneNo"] }}{{ log["metadata"]["email"] }}</td>
+                    <td>{{ log["metadata"]["amount"] }}</td>
+                    <td>{{ 
+                        
+                        clever_function(log["date"])
+                    
+                    }}</td>
+                    <td>{{ log["requestType"] }}</td>
+                    <td><button type="button" class="btn btn-default" data-toggle="modal" data-target="#exampleModal">
+                        Show Raw log
+                      </button>
+                      <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">{{ log["metadata"]["walletAccountNo"] }} logs</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              <span class="h4"><b>Request Type</b> : {{ log["requestType"] }}</span>
+                              <br><span class="h4"><b>Date</b> : {{ log["date"] }}</span>
+                              <br><span class="h4"><b>URL</b> : {{ log["url"] }}</span>
+                              <br>
+                              <br>
+                              <span class="h5"><b>Raw</b> : {{ log }}</span>
+                              <br>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                              <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- end -->
+                    
+                    </td>
+
+
+                  </tr>
+
+                {% endfor %}
+            
+          </tbody>
+        </table>
+        
+      </div>
+    </div>
+    <div class="card-footer small text-muted">Updated {{ logs[1][-1]["date"]}}</div>
+  </div>
+
+</div>

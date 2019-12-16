@@ -1,0 +1,105 @@
+{% extends 'includes/fullstructure.html' %}
+{% block Content %}
+{% if mpesaLogs %}
+
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+      <a href="/dashboard">Table</a>
+    </li>
+    <li class="breadcrumb-item active">Token Request</li>
+  </ol>
+<!-- DataTables Example -->
+<div class="card mb-3">
+    <div class="card-header">
+      <i class="fas fa-table"></i>
+      Token requests</div>
+    <div class="card-body">
+      <div class="table-responsive">
+      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+          <thead>
+            <tr>
+              <th>Transaction id</th>
+              <th>Account</th>
+              <th>Entity</th>
+              <th>Date</th>
+              <th>Type</th>
+              <th>View</th>
+            </tr>
+          </thead>
+          <tfoot>
+              <tr>
+               <th>Transaction id</th>
+              <th>Account</th>
+              <th>Entity</th>
+              <th>Date</th>
+              <th>Type</th>
+              <th>View</th>
+              </tr>
+            </tfoot>
+            <tbody>    
+                {% for log in mpesaLogs %}
+                <tr>
+                    <td>{{ log["_id"] }}</td>
+                    <td>{{ log["account"] }}</td>
+                    <td>{{ log["metadata"]["entity"] }}</td>
+                    <td>{{ 
+                        
+                        clever_function(log["date"])
+                    
+                    }}</td>
+                    <td>{{ log["requestType"] }}</td>
+
+                    <td><button type="button" class="btn btn-default" data-toggle="modal" data-target="#exampleModal">
+                        Show Raw log
+                      </button>
+                      <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">logs</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+
+                              <span class="h5"><b>Raw</b> : {{log}}</span>
+                              <br>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                              <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- end -->
+                    
+                    </td>
+
+
+                  </tr>
+
+                {% endfor %}
+            
+          </tbody>
+        </table>
+        
+      </div>
+    </div>
+    <div class="card-footer small text-muted">Updated on</div>
+  </div>
+
+</div>
+
+{% else %}
+
+
+{% for log in mpesaLogs %}
+    {{log}} <br>
+{% endfor %}
+
+{% endif %}
+
+{% endblock  %}

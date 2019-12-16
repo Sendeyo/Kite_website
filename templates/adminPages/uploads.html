@@ -1,0 +1,129 @@
+{% extends "structureadmin.html" %}
+{% block body %}
+
+<body id="page-top">
+  <!-- app Bar -->
+  {% include "includes/_adminNav.html" %}
+
+  <div id="wrapper">
+    <!-- Sidebar -->
+    {% include "widgets/sideBar.html" %}
+
+    <div id="content-wrapper">
+      <div class="container-fluid">
+
+
+        <div class="">
+          <!-- <div id="small-space"></div> -->
+          <div>
+            {% if message %}
+
+            <div class="alert alert-success alert-dismissible fade show">
+              <strong>Note!</strong> {{ message }}
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+            </div>
+            <br>
+            {% endif %}
+
+            {% if warning %}
+
+            <div class="alert alert-warning alert-dismissible fade show">
+              <strong>Warning!</strong> {{ warning }}
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+            </div>
+            <br>
+            {% endif %}
+
+            
+
+          </div>
+          <form action="/upload/upload" method="POST" class="form-group form-inline" enctype="multipart/form-data">
+            <span class="h3"> Choose a file to upload: &nbsp</span>
+
+            <input type="file" name="file" id="" class="form-control btn btn-info" required>
+            <input type="submit" value="UPLOAD CSV" name="submit" id="" class="form-control btn btn-warning">
+
+          </form>
+          {% if content %}
+          <br>
+            <div class="alert alert-success alert-dismissible fade show">
+              <strong align="center">Preview</strong>
+              <br>
+              <p>
+                  <table class="table">
+                      <thead></thead>
+                      <tbody>
+                        {% for row in content %}
+                        <tr> 
+                          {% for  data in row %}
+                              <td>{{ data }}</td>
+                          {% endfor %}                  
+                        </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+
+              </p> 
+              
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+            </div>
+            <br>
+            {% endif %}
+        </div>
+        <div class="container">
+            {% if uploads %}
+            
+            <table class="table">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">FIles in the system</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for file in uploads %}
+                    <tr>
+                        <th scope="row" class="h3"></th>
+                        <td class="h4">{{file}}</td>
+                        <td><a href="/upload/delete/{{file}}" class="btn btn-danger">Delete</a></td>  
+                        <td><a href="/upload/{{file}}" class="btn btn-success">preview</a></td>  
+                    </tr>
+                    {% endfor %}               
+                </tbody>
+              </table>
+              {% else %}
+                <h1 align="center">Uploaded files appear here</h1>
+              {% endif %}
+            
+          
+
+        </div>
+
+      </div>
+      <!-- /.content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- Scroll to Top Button-->
+    {% include "widgets/scrollTop.html" %}
+
+
+    <!-- Logout Modal-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script>
+
+      $(document).ready(function () {
+        $("button").click(function () {
+          $(".csvDataTable").toggle();
+          
+        }
+        );
+      });
+
+    </script>
+
+</body>
+{% endblock %}
