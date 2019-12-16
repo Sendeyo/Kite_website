@@ -1,0 +1,52 @@
+.custom-card{
+  align-self: center;
+  color: aqua;
+  height:200px;
+  background:rgb(29, 77, 66);
+  margin-top: 50px;
+  margin-bottom: 50px;
+  padding: 0px 20px 0px 20px;
+  border-radius: 30px;
+  text-decoration: none;
+}
+
+.tile{
+  padding: 50px 20px 0px 20px;
+}
+
+.tile :hover{
+  color: black;
+  background-color: rgb(66, 230, 221) ;
+  text-decoration: none;  
+}
+
+.tile a :hover{
+  color:#1F4F82;
+  text-decoration:none;
+}
+
+.my-table{
+  padding: 10px;
+  
+}
+
+.pad{
+  padding-top: 80px;
+}
+
+.padHome{
+  padding-top: 80px;
+}
+
+.home{
+  min-height: 100%;
+  background-image: url("../images/conference-hall.jpg");
+  background-color: rgb(102, 99, 99);
+  background-repeat: no-repeat;
+  background-position: left top;
+  background-attachment: fixed;
+  background-size: 100% ;
+  background-blend-mode: multiply;
+
+  
+}

@@ -1,0 +1,51 @@
+{% extends "structure.html" %}
+{% block body %} 
+
+
+<body class="bg-dark">
+
+  <div class="container">
+          {% if error %}
+            <div class="alert alert-danger alert-dismissible fade show">
+              <strong>Warning! &nbsp;</strong> {{ error }}
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+            </div>
+            <br>
+            {% endif %}
+    <div class="card card-login mx-auto mt-5">
+      <div class="card-header"><p align="center"><span class="h3">Create a kite wallet</span></p></div>
+      <div class="card-body">
+        <div class="text-center mb-4">
+          <b>Creating an account?</b>
+          <p>Enter your phone Number and we will send you a code to crate an account with.</p>
+        </div>
+        <form method="POST" action="">
+          <div class="form-group">
+            <div class="form-label-group">
+              <input type="tel" id="inputEmail" name="phoneNumber" class="form-control" placeholder="Enter email address" required="required" autofocus="autofocus" maxlength="10">
+              <label for="inputEmail">Enter Phone number 0...</label>
+            </div>
+          </div>
+          <input type="submit" class="btn btn-primary btn-block" value="Get the otp">
+        </form>
+        <div class="text-center">
+          <a class="d-block small" href="/">Login Page</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+</body>
+
+
+
+
+{% endblock %}
+

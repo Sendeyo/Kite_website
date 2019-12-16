@@ -1,0 +1,16 @@
+{% extends 'includes/fullstructure.html' %}
+{% block Content %}
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+      <a href="/dashboard">Dashboard</a>
+    </li>
+    <li class="breadcrumb-item active">Overview</li>
+  </ol>
+
+  {% include 'adminPages/widgets/logCards.html' %}
+  {% include 'adminPages/widgets/dataTable.html' %}
+
+
+{% endblock Content %}
+
+

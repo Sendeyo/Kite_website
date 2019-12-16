@@ -1,0 +1,77 @@
+{% extends "structureadmin.html" %}
+{% include "includes/_defaultNav.html" %}
+{% block body %}
+
+<body class="bg-dark">
+  <div class="container">
+    <div class="card mx-auto mt-6">
+      <div class="card-header h3 subColor">
+        <p align="center">{{ userdata["username"] }}</p>
+      </div>
+      <div class="card-body lightColor">
+
+        <div class="row">
+          <div class="col-md-3">
+            <div>
+              <img src="https://static3.srcdn.com/wordpress/wp-content/uploads/2019/06/Sam-Wilson-as-Captain-America-1.jpg" class="rounded-circle mx-auto img-fluid" alt="Profile pic">
+              <br><br>
+              <p align="justify">
+                <br>
+                phone: <span>{{ userdata["phoneNo"] }}</span>
+                <br>
+                Wallet Number: <span>{{ userdata["wallet"][0]["walletNo"] }}</span>
+                <br>
+  
+                <div class="container">
+                  <a href="#" title=" {{ userdata['username'] }} Balance" data-placement="bottom" data-toggle="popover"
+                    data-trigger="focus" data-content="KSH {{ userdata['wallet'][0]['balance'] }}"
+                    class="btn btn-default">Click to see balance</a>
+                </div>
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+                <script>
+                  $(document).ready(function () {
+                    $('[data-toggle="popover"]').popover();
+                  });
+                </script>
+              </p>
+            </div>
+
+          </div>
+          <div class="col-md-9 chat-body">
+            <p align="center" class="h3">Transactions</p>
+
+
+           {% if transactions %}
+
+           {% for transaction in transactions %}
+               <div class="{{ transaction['operation'] }}">
+
+                {{ transaction['_id'] }} confirmed. Ksh. {{ transaction['amount'] }} transacter from
+                for Account {{ transaction['walletNo'] }} on {{ transaction['timeStamp'] }}. New Balance is {{ transaction['balance'] }}
+
+               </div>
+           {% endfor %}
+           
+           {% else %}
+            <p class="h3">
+              Your transactions appear here once You start transacting
+            </p>
+           {% endif %}
+
+          </div>
+
+
+        </div>
+
+      </div>
+      <div class="card-footer subColor">
+        <h1></h1>
+      </div>
+    </div>
+  </div>
+</body>
+
+
+
+
+{% endblock %}

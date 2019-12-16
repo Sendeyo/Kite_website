@@ -1,0 +1,56 @@
+
+{% include "widgets/footerModel.html" %}
+{% extends "includes/structureadmin.html" %}
+{% block body %}
+
+<body id="page-top">
+<!-- app Bar -->
+{% include "includes/_adminNav.html" %}
+
+<div id="wrapper">
+    <!-- Sidebar -->
+    {% include "widgets/sideBar.html" %}
+
+    <div id="content-wrapper">
+        <div class="container-fluid">
+<!-- Breadcrumbs-->
+
+
+<!-- Icon cards -->
+{% if cardsData %}
+{% include "widgets/iconCards.html" %}
+
+{% endif %}
+
+
+<!-- Line graph -->
+
+
+<!-- Table Data -->
+{% if logs%}
+{% include "widgets/dataTable.html" %}
+{% endif %}
+
+
+<!-- /.container-fluid -->
+
+<!-- Sticky Footer -->
+            
+
+        </div>
+        <!-- /.content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- Scroll to Top Button-->
+    {% include "widgets/scrollTop.html" %}
+
+
+    <!-- Logout Modal-->
+
+</div>
+</body>
+
+
+
+{% endblock %}

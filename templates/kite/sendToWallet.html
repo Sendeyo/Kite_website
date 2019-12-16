@@ -1,0 +1,59 @@
+{% extends "structureadmin.html" %}
+{% include "includes/_defaultNav.html" %}
+{% block body %}
+
+<body class="bg-dark">
+  <div class="container">
+    <div class="card mx-auto mt-5">
+      <div class="card-header h3 subColor">
+        <p align="center">{{ userdata["username"] }} Send Money To Another Wallet</p>
+      </div>
+      <div class="card-body lightColor">
+
+        <div class="">
+            {% if notification %}
+            {{ notification }}
+            {% else %}
+                {% if error %}
+                  <div class="alert alert-danger alert-dismissible fade show">
+                    <strong>Warning! &nbsp;</strong> {{ error }}
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                  </div>
+                  <br>
+                {% endif %}
+
+                {% if message %}
+                  <div class="alert alert-success alert-dismissible fade show">
+                    <strong>Woow! &nbsp;</strong> {{ message }}
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                  </div>
+                  <br>
+                {% endif %}
+                <form action="" method="POST" class="form-group row mx-auto">
+                    <div class="col-md-6">
+                    <input type="tel" name="accountNo" required id="" placeholder="Recipient Number" class="form-control">
+                    <br>
+                    <div class="d-none d-md-block"><br><br><br><br></div>
+                    <input type="tel" name="amount" id="" required placeholder="EnterAmount" class="form-control" required>
+                    <br>
+                    </div>
+                    <div class="col-md-6 mx-auto">
+                    <button type="submit" ><img src="/static/images/kitebirdSend.png" alt="kitebird" class="img-fluid" width="200"></button>
+                    </div>
+                </form>
+                {% endif %}
+        </div>
+
+        
+      </div>
+      <div class="card-footer subColor">
+        <h1></h1>
+      </div>
+    </div>
+  </div>
+</body>
+
+
+
+
+{% endblock %}

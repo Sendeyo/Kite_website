@@ -1,0 +1,28 @@
+{% include "includes/structureadmin.html" %}
+<body id="page-top">
+<!-- app Bar -->
+{% include "includes/_adminNav.html" %}
+<div id="wrapper">
+<!-- Sidebar -->
+{% include "includes/sideBar.html" %}
+<!-- Body -->
+
+    <div id="content-wrapper">
+        <div class="container-fluid">
+
+            {% block Content %}
+            
+            {% endblock Content %}            
+           
+
+        </div>
+    </div>
+    <!-- /#wrapper -->
+
+<!-- Scroll to Top Button-->
+{% include "widgets/scrollTop.html" %}
+<!-- Logout Modal-->
+{% include "widgets/logoutModel.html" %}
+
+</div>
+</body>
