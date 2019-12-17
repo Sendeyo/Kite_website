@@ -7,23 +7,3 @@
 .lightColor{
     background: rgb(204, 231, 255);
 }
-
-
-.row:before, .row:after {display: none !important;}
-@media screen and (-webkit-min-device-pixel-ratio:0){ 
-
-    ::i-block-chrome, .row.safari-fix  {
-      display:table!important;
-    }
-   ::i-block-chrome, .row.safari-fix [class*="col-"] {
-      display:table-cell!important;
-      float:none!important;
-     width:auto!important;
-     padding-left:2%!important;
-     padding-right:2%!important;
-    }
-  
-  } /* end safari rounding bug hack */
-  .row:before, .row:after{
-    display: inline-block !important;
-   }

@@ -40,13 +40,13 @@
 
 .home{
   min-height: 100%;
-  background-image: url("../images/conference-hall.jpg");
+  /* background-image: url("../images/conference-hall.jpg"); */
   background-color: rgb(102, 99, 99);
-  background-repeat: no-repeat;
-  background-position: left top;
-  background-attachment: fixed;
-  background-size: 100% ;
-  background-blend-mode: multiply;
-
-  
+  /* background-repeat: no-repeat; */
+  /* background-position: left top; */
+  /* background-attachment: fixed; */
+  /* background-size: 100% ; */
+  /* background-blend-mode: multiply; */
 }
+
+.row:before, .row:after {display: none !important;}
