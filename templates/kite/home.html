@@ -4,20 +4,18 @@
 
 
 <div class="container-fluid Home">
-    <div class="padHome">
-        <div>
-                  <!-- Icon Cards-->
+        <!-- Icon Cards-->
         <div class="row">
                 {% for tile in tiles%}
-                <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-xs-7 tile" >
+                <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-xs-7 tile mt-5" >
                   <div class="card text-white {{tile['color']}} o-hidden h-100">
-                    <div class="card-body">
+                    <div class="card-header">
                       <div class="card-body-icon">
                         <i class="{{tile['icon']}}"></i>
                       </div>
                       <div class="h2">{{ tile["name"] }}</div>
                     </div>
-                    <a class="card-footer text-white clearfix small z-1" href="/home/{{ tile['name'] }}">
+                    <a class="mt-2 card-footer text-white clearfix small z-1" href="/home/{{ tile['name'] }}">
                         <div class="mt-2"></div>
                       <span class="float-left h4">{{ tile["name"] }}</span>
                       <span class="float-right h4">

@@ -10,10 +10,6 @@
   text-decoration: none;
 }
 
-.tile{
-  padding: 50px 20px 0px 20px;
-}
-
 .tile :hover{
   color: black;
   background-color: rgb(66, 230, 221) ;
@@ -50,3 +46,6 @@
 }
 
 .row:before, .row:after {display: none !important;}
+.row:before, .row:after {
+  display: flex !important;
+  }

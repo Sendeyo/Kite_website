@@ -21,10 +21,11 @@
                 <br>
                 Wallet Number: <span>{{ userdata["wallet"][0]["walletNo"] }}</span>
                 <hr>
-                <a data-container="body" 
-data-toggle="popover" 
-data-placement="top" 
-data-content=" KSH {{ userdata['wallet'][0]['balance'] }}" data-original-title="" title="{{ userdata['username'] }} Balance">See my balance</a>
+                <button class="btn btn-info" data-container="body" 
+                  data-toggle="popover" 
+                  data-placement="top" 
+                  data-content=" KSH {{ userdata['wallet'][0]['balance'] }}" 
+                  data-original-title="" title="{{ userdata['username'] }} Balance">See my balance</button>
 
   
                 <!-- <div class="container">
