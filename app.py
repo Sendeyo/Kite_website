@@ -23,6 +23,19 @@ app.config.update(
 )
 mail = Mail(app)
 
+######################################################
+
+def determineType_function(operation):
+    if operation == "send":
+        return "Transfered to"
+    else:
+        return "Recieved From"
+
+
+app.jinja_env.globals.update(determineType_function=determineType_function)
+
+
+######################################################
 
 @app.errorhandler(404)
 def Page_not_found(e):
@@ -78,15 +91,27 @@ def Login():
 def Register():
     if request.method == "POST":
         phoneNumber = request.form["phoneNumber"]
-        phoneNumber ="254{}".format(phoneNumber[-9:])
-        number = {"phoneNo":phoneNumber}
-        res = apis.VerifyNumber(number)
-        if res.status_code == 200:
-            session["phoneNo"] = phoneNumber
-            time.sleep(1)
-            return redirect("/passwordVerification")
+        if len(phoneNumber) < 9:
+            error = "Phone Number too short"
+            return render_template("kite/getOtp.html", error = error)
+        elif len(phoneNumber) > 10:
+            error = "Phone Number should be at most 10 characters"
+            return render_template("kite/getOtp.html", error = error)
+        elif phoneNumber[:2] == "07" or phoneNumber[:1] == "7":
+            phoneNumber ="254{}".format(phoneNumber[-9:])
+            if len(phoneNumber) > 12:
+                error = "Phone Number should be at most 10 characters"
+                return render_template("kite/getOtp.html", error = error)
+            number = {"phoneNo":phoneNumber}
+            responce = apis.VerifyNumber(number)
+            if responce.status_code == 200:
+                time.sleep(1)
+                return redirect("/passwordVerification")
+            else:
+                error ="Sorry! Please try again."
+                return render_template("kite/getOtp.html", error = error)
         else:
-            error = "please try again"
+            error = "Please use a right number"
             return render_template("kite/getOtp.html", error = error)
     return render_template("kite/getOtp.html")
 
@@ -150,12 +175,17 @@ def Profile():
         transactions = apis.GetAllTransactions(session["phoneNumber"], session["password"])
         if transactions.status_code == 200:
             transactions = transactions.json()["body"]
+            return render_template("/kite/profile.html", userdata=session["userdata"], transactions = transactions)
         else:
-            transactions = ""
-        return render_template("/kite/profile.html", userdata=session["userdata"], transactions = transactions)
+            transactions = []
+            return render_template("/kite/profile.html", userdata=session["userdata"], transactions = transactions)
+        
     else:
         return redirect("/")
 
+@app.route("/demo")
+def Demo():
+    return render_template("/kite/404.html")
 
 @app.route("/sendToWallet", methods = ["GET", "POST"])
 def SendToWallet():
@@ -433,7 +463,7 @@ def Numbers(req):
     reqs.update({"cardreq": y})
     return reqs
 
-
+determineType_function
 def clever_function(date):
     convertedDate = fun.Convert(date)
     return convertedDate

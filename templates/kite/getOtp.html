@@ -1,7 +1,10 @@
 {% extends "structure.html" %}
 {% block body %} 
-
-
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="/static/build/css/intlTelInput.css">
+  <link rel="stylesheet" href="/static/build/css/demo.css">
+</head>
 <body class="bg-dark">
 
   <div class="container">
@@ -19,14 +22,25 @@
           <b>Creating an account?</b>
           <p>Enter your phone Number and we will send you a code to crate an account with.</p>
         </div>
-        <form method="POST" action="">
+
+        <form method="POST" action="" class="text-center">
+          <input id="phone" name="phoneNumber" type="tel"><br><br>
+          <input type="submit" name="" value="Get OTP" class="btn btn-primary">
+        </form>
+        <br>
+
+
+
+        <!-- <form method="POST" action="">
+
+
           <div class="form-group">
             <div class="form-label-group">
               <input type="tel" id="inputEmail" name="phoneNumber" class="form-control" placeholder="Enter email address" required="required" autofocus="autofocus" maxlength="10">
               <label for="inputEmail">Enter Phone number 0...</label>
             </div>
           </div>
-          <input type="submit" class="btn btn-primary btn-block" value="Get the otp">
+          <input type="submit" class="btn btn-primary btn-block" value="Get the otp"> -->
         </form>
         <div class="text-center">
           <a class="d-block small" href="/">Login Page</a>
@@ -36,6 +50,34 @@
   </div>
 
   <!-- Bootstrap core JavaScript-->
+  <script src="/static/build/js/intlTelInput.js"></script>
+  <script>
+    var input = document.querySelector("#phone");
+    window.intlTelInput(input, {
+      // allowDropdown: true,
+      // autoHideDialCode: false,
+      // autoPlaceholder: "on",
+      // dropdownContainer: document.body,
+      // excludeCountries: ["us"],
+      // formatOnDisplay: true,
+      // geoIpLookup: function(callback) {
+      //   $.get("http://ipinfo.io", function() {}, "jsonp").always(function(resp) {
+      //     var countryCode = (resp && resp.country) ? resp.country : "";
+      //     callback(countryCode);
+      //   });
+      // },
+      // hiddenInput: "full_number",
+      // initialCountry: "ke",
+      // localizedCountries: { 'de': 'Deutschland' },
+      // nationalMode: false,
+      onlyCountries: ['ke'],
+      // placeholderNumberType: "MOBILE",
+      // preferredCountries: ['ke', 'tz', 'ug'],
+      separateDialCode: true,
+      utilsScript: "/static/build/js/utils.js",
+    });
+  </script>
+
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 

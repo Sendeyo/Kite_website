@@ -39,6 +39,8 @@
           </div>
           <div class="col-md-9 chat-body">
             <p align="center" class="h3">Transactions</p>
+            <a href="#lastpart" class="btn btn-info float-right">Move to latest Transaction</a>
+            <br><hr>
 
            {% if transactions %}
 
@@ -47,8 +49,12 @@
 
                 <hr>
 
-                {{ transaction['_id'] }} confirmed. Ksh. {{ transaction['amount'] }} transacter to
-                {{ transaction['walletNo'] }} on {{ transaction['timeStamp'] }}. New Balance is {{ transaction['balance'] }}
+                {{ transaction['_id'] }} confirmed. <b>Ksh.{{ transaction['amount'] }}</b> {{ determineType_function(transaction['operation']) }}
+                {{ transaction['secondPartNo'] }} on {{ transaction['timeStamp'] }}. New <b>Balance is {{ transaction['balance'] }}</b>
+
+                <br>
+                <b class="float-right">{{ clever_function(transaction['timeStamp']) }} </b>
+                <br>
 
                </div>
            {% endfor %}
@@ -65,7 +71,7 @@
         </div>
 
       </div>
-      <div class="card-footer subColor">
+      <div class="card-footer subColor" id="lastpart">
         <h1></h1>
       </div>
     </div>

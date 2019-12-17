@@ -9,7 +9,7 @@
                   <!-- Icon Cards-->
         <div class="row">
                 {% for tile in tiles%}
-                <div class="col-xl-3 col-l-4 col-md-4 col-sm-6 col-xs-12 tile" >
+                <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-xs-7 tile" >
                   <div class="card text-white {{tile['color']}} o-hidden h-100">
                     <div class="card-body">
                       <div class="card-body-icon">
@@ -18,7 +18,7 @@
                       <div class="h2">{{ tile["name"] }}</div>
                     </div>
                     <a class="card-footer text-white clearfix small z-1" href="/home/{{ tile['name'] }}">
-                        <div class="padHome"></div>
+                        <div class="mt-2"></div>
                       <span class="float-left h4">{{ tile["name"] }}</span>
                       <span class="float-right h4">
                         <i class="{{tile['icon']}}"></i>&nbsp
@@ -44,5 +44,6 @@
         <div class="d-none d-md-block d-lg-none">md medium</div>
         <div class="d-none d-lg-block d-xl-none">ls large</div>
         <div class="d-none d-xl-block">xl Extra large</div>
-    </div> -->
+    </div>
+     -->
 {% endblock body%}
