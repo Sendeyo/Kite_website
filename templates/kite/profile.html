@@ -20,13 +20,18 @@
                 phone: <span>{{ userdata["phoneNo"] }}</span>
                 <br>
                 Wallet Number: <span>{{ userdata["wallet"][0]["walletNo"] }}</span>
-                <br>
+                <hr>
+                <a data-container="body" 
+data-toggle="popover" 
+data-placement="top" 
+data-content=" KSH {{ userdata['wallet'][0]['balance'] }}" data-original-title="" title="{{ userdata['username'] }} Balance">See my balance</a>
+
   
-                <div class="container">
+                <!-- <div class="container">
                   <a href="#" title=" {{ userdata['username'] }} Balance" data-placement="bottom" data-toggle="popover"
                     data-trigger="focus" data-content="KSH {{ userdata['wallet'][0]['balance'] }}"
                     class="btn btn-default">Click to see balance</a>
-                </div>
+                </div> -->
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
                 <script>
                   $(document).ready(function () {
