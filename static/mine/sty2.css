@@ -34,6 +34,7 @@
   padding-top: 80px;
 }
 
+
 .home{
   min-height: 100%;
   /* background-image: url("../images/conference-hall.jpg"); */
@@ -44,6 +45,7 @@
   /* background-size: 100% ; */
   /* background-blend-mode: multiply; */
 }
+
 
 .row:before, .row:after {display: none !important;}
 .row:before, .row:after {
