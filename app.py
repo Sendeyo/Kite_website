@@ -164,7 +164,7 @@ tiles = [
     {"name": "Send to Mpesa", "icon": "fas fa-fw fa-paper-plane", "color": "bg-success"},
     {"name": "Billers", "icon": "fas fa-fw fa-money-bill-wave", "color": "bg-info"},
     
-    {"name": "Admin Panel", "icon": "fas fa-fw fa-toolbox", "color": "bg-danger"},
+    # {"name": "Admin Panel", "icon": "fas fa-fw fa-toolbox", "color": "bg-danger"},
 ]
 @app.route("/home")
 def Home():
