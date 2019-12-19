@@ -289,25 +289,28 @@ def SendToMpesa():
 
             if eval(amount) < 5:
                 error = "You cant Transact less than ksh 5.00"
-                return render_template("/kite/sendToWallet.html", userdata = session["userdata"], error = error)
+                return render_template("/kite/sendToMpesa.html", userdata = session["userdata"], error = error)
             elif eval(amount) > 50000:
                 error = "You cant Transact More than ksh 50000.00"
-                return render_template("/kite/sendToWallet.html", userdata = session["userdata"], error = error)
+                return render_template("/kite/sendToMpesa.html", userdata = session["userdata"], error = error)
             else:
-                data ={
-                "amount": amount,
-                "recipientNo": "0010{}".format(account[-8:])
-                }
-                responce = apis.WalletToWallet(session["phoneNumber"], session["password"], data)
-                if responce.status_code == 200:
-                    message = "Sending Ksh {} to {} Scuccessful". format(amount, account)
-                    return render_template("/kite/sendToWallet.html", userdata = session["userdata"], message = message)
-                else:
-                    error = responce.text
-                    return render_template("/kite/sendToWallet.html", userdata = session["userdata"], notification = error)
+                error = "The test works, feature coming soon"
+                return render_template("/kite/sendToMpesa.html", userdata = session["userdata"], notification = error)
+
+                # data ={
+                # "amount": amount,
+                # "recipientNo": "0010{}".format(account[-8:])
+                # }
+                # responce = apis.WalletToWallet(session["phoneNumber"], session["password"], data)
+                # if responce.status_code == 200:
+                #     message = "Sending Ksh {} to {} Scuccessful". format(amount, account)
+                #     return render_template("/kite/sendToMpesa.html", userdata = session["userdata"], message = message)
+                # else:
+                #     error = responce.text
+                #     return render_template("/kite/sendToMpesa.html", userdata = session["userdata"], notification = error)
         else:
             pass
-        return render_template("/kite/sendToWallet.html", userdata = session["userdata"])
+        return render_template("/kite/sendToMpesa.html", userdata = session["userdata"])
     else:
         return redirect("/")
 
@@ -388,8 +391,8 @@ def ChooseMethod():
 @app.route("/adminLogin", methods = ["GET", "POST"])
 def AdminLogin():
     if request.method == "POST":
-        session["administrator"] = "maxmuthomi@gmail.com"
-        return redirect("/Dashboard")
+        # session["administrator"] = "maxmuthomi@gmail.com"
+        return redirect("/dashboard")
     else:
         session["administrator"] = "maxmuthomi@gmail.com"
         return redirect("/Dashboard")
