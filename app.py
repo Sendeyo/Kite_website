@@ -27,12 +27,23 @@ mail = Mail(app)
 
 def determineType_function(operation):
     if operation == "send":
-        return "Transfered to"
+        return "Sent to your Wallet from xxxxxxxxxxxxxxx"
     else:
-        return "Recieved From"
+        return "sent to **** from your Wallet"
+
+def make_it_money(value):
+    value = 'Ksh {:,.2f}'.format(value)
+    return value
+    
+def transaction_date_format(date):
+    convertedDate = fun.Convert4User(date)
+    return convertedDate
 
 
 app.jinja_env.globals.update(determineType_function=determineType_function)
+app.jinja_env.globals.update(make_it_money=make_it_money)
+app.jinja_env.globals.update(transaction_date_format=transaction_date_format)
+
 
 
 ######################################################
@@ -81,10 +92,10 @@ def Login():
                     return render_template("/kite/login.html", error=error)
             except:
                 error = "Server error"
-                print(error)
                 return render_template("/kite/login.html", error=error)
         else:
             return render_template("/kite/login.html")
+    return render_template("/kite/login.html")
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -139,8 +150,11 @@ def PassVerification():
 
 tiles = [
     {"name": "My Account", "icon": "fas fa-fw fa-user", "color": "bg-primary"},
-    {"name": "Send to Wallet", "icon": "fas fa-fw fa-paper-plane", "color": "mainColor"},
     {"name": "Top Up", "icon": "fas fa-fw fa-wallet", "color": "bg-warning"},
+    {"name": "Send to Wallet", "icon": "fas fa-fw fa-paper-plane", "color": "mainColor"},
+
+    {"name": "Send to Bank", "icon": "fas fa-fw fa-paper-plane", "color": "subColor"},
+    
     {"name": "Send to Mpesa", "icon": "fas fa-fw fa-paper-plane", "color": "bg-success"},
     {"name": "Billers", "icon": "fas fa-fw fa-money-bill-wave", "color": "bg-info"},
     
@@ -160,6 +174,8 @@ def Tiles(tile):
         return redirect("/profile")
     elif tile == "Send to Wallet":
         return redirect("/sendToWallet")
+    elif tile == "Send to Bank":
+        return redirect("/sendToBank")
     elif tile == "Top Up":
         return redirect("/Top Up")
     elif tile == "Admin Panel":
@@ -185,7 +201,45 @@ def Profile():
 
 @app.route("/demo")
 def Demo():
-    return render_template("/kite/404.html")
+    return render_template("/kite/myinputs.html",  userdata=session["userdata"])
+
+@app.route("/sendToBank", methods = ["GET","POST"])
+def SendToBank():
+    if "userdata" in session:
+        banks = apis.GetBankNames()
+        if request.method == "POST":
+            bankName = request.form["bankName"]
+            recipientNo = request.form["credit-card"]
+            amount = request.form["amount"]
+            amount = amount.replace("Ksh ","")
+            recipientNo = recipientNo.replace(" - ","")
+            print(amount)
+            print(recipientNo)
+            try:
+                if eval(amount) < 5 or eval(amount) > 50000:
+                    if eval(amount) < 5:
+                        error = "You cant send less than ksh 5.00"
+                    elif eval(amount) < 50000:
+                        error = "You cant send More than ksh 50,000.00"
+                    return render_template("/kite/sendToBank.html", userdata = session["userdata"], banks = banks, error=error)
+                else:
+                    error = "perfect"
+                    return render_template("/kite/sendToBank.html", userdata = session["userdata"], banks = banks, error=error)
+            except Exception as e:
+                error = e
+                print(e)
+                return render_template("/kite/sendToBank.html", userdata = session["userdata"], banks = banks, error=error)
+            data = {
+                        "accountNumber": amount,
+                        "bankCode": banks[bankName],
+                        "amount": amount,
+                        "transactionCurrency": "KES",
+                        "narration": "Money transfer from Kite Wallet"
+                    }
+        else:
+            return render_template("/kite/sendToBank.html", userdata = session["userdata"], banks = banks)
+    else:
+        return redirect("/")
 
 @app.route("/sendToWallet", methods = ["GET", "POST"])
 def SendToWallet():

@@ -4,6 +4,17 @@ from requests.auth import HTTPBasicAuth
 ip = "http://18.189.117.13:2027"
 
 
+def GetBankNames():
+    banklist = {"KCB":1, 2:"Standard Charteed Bank KE", "Barclays Bank":3, "CBA":7, "Prime Bank":10,
+    "Cooperative Bank":11, "National Bank":12, "Citibank":16, "Habib Bank AG Zurich":17, "Middle East Bank":18,
+    "Bank of Africa":19, "Consolidated Bank":23, "Credit Bank Ltd":25, "Stanbic Bank":31, "ABC bank":35, "NIC Bank":41,
+    "Spire Bank":49, "Paramount Universal Bank":50, "Jamii Bora Bank":51, "Guaranty Bank":53, "Victorial Commercial Bank":54,
+    "Guardian Bank":55, "I&M Bank":57, "DTB":63,
+    "Sidian Bank":66, "Equity Bank":68, "Family Bank":70, "Gulf African Bank":72, "First Community Bank":74, "KWFT Bank":78
+    }
+    return banklist
+
+
 def GetCooperateToken(cooperate = "kite test001", password = "85O17381U1"):# Get a token via a company for those without access
     tokenurl= "{}/cooperate/token".format(ip)
     responce = requests.get(tokenurl, auth=(cooperate, password))
@@ -79,6 +90,7 @@ def GetUserData(phoneNo, password):
         response = requests.get(userInfoUrl, headers=head)
         return response
     else:
+        print("#######")
         return token
 
 # responce = GetUserData("254715232942", "1234")
@@ -169,6 +181,11 @@ def CardToWallet(phoneNo, password, data):
 # responce = CardToWallet("254715232942", "1234", reeee)
 # print(responce)
 # print(responce.text)
+
+def WalletToBank():
+    print("-------------------")
+    
+    print("-------------------")
 
 
 

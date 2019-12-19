@@ -8,3 +8,10 @@ def Convert(date):
     dt + timedelta(hours=9)
     times =dt.strftime("%b %d %Y %H:%M:%S")
     return times
+    
+
+def Convert4User(date):
+    dt = parse(date)
+    dt + timedelta(hours=9)
+    times =dt.strftime("%b %d - %Y at %H:%M:%S")
+    return times

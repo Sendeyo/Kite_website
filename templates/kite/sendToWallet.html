@@ -2,11 +2,17 @@
 {% include "includes/_defaultNav.html" %}
 {% block body %}
 
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="/static/build/css/intlTelInput.css">
+  <link rel="stylesheet" href="/static/build/css/demo.css">
+</head>
+
 <body class="bg-dark">
   <div class="container">
-    <div class="card mx-auto mt-5">
+    <div class="card card-login mx-auto mt-5">
       <div class="card-header h3 subColor">
-        <p align="center">{{ userdata["username"] }} Send Money To Another Wallet</p>
+        <p align="center">Send Money To Another Wallet</p>
       </div>
       <div class="card-body lightColor">
 
@@ -30,22 +36,44 @@
                   <br>
                   
                 {% endif %}
-                <form action="" method="POST" class="form-group row mx-auto">
-                    <div class="col-md-6">
-                    <input type="tel" name="accountNo" required id="" placeholder="Recipient Number" class="form-control">
-                    <br>
-                    <div class="d-none d-md-block"><br><br><br><br></div>
-                    <input type="tel" name="amount" id="" required placeholder="EnterAmount" class="form-control" required>
-                    <br>
-                    </div>
-                    <div class="col-md-6 mx-auto">
-                    <button type="submit" ><img src="/static/images/kitebirdSend.png" alt="kitebird" class="img-fluid" width="200"></button>
-                    </div>
+                <form action="" method="POST" class="form-group">
+
+                    <input type="tel" name="accountNo" required id="phone" placeholder="Recipient Number" class="form-control">
+                    <br><br>
+                    <input type="tel" name="amount" id="" required placeholder="Enter Amount" class="form-control" required>
+                    <br><br>
+                    <input type="submit" value="Send" name="" id="" class="form-control btn btn-success" >
                 </form>
                 {% endif %}
 
         </div>
-
+        <script src="/static/build/js/intlTelInput.js"></script>
+        <script>
+          var input = document.querySelector("#phone");
+          window.intlTelInput(input, {
+            // allowDropdown: true,
+            // autoHideDialCode: false,
+            // autoPlaceholder: "on",
+            // dropdownContainer: document.body,
+            // excludeCountries: ["us"],
+            // formatOnDisplay: true,
+            // geoIpLookup: function(callback) {
+            //   $.get("http://ipinfo.io", function() {}, "jsonp").always(function(resp) {
+            //     var countryCode = (resp && resp.country) ? resp.country : "";
+            //     callback(countryCode);
+            //   });
+            // },
+            // hiddenInput: "full_number",
+            // initialCountry: "ke",
+            // localizedCountries: { 'de': 'Deutschland' },
+            // nationalMode: false,
+            onlyCountries: ['ke'],
+            // placeholderNumberType: "MOBILE",
+            // preferredCountries: ['ke', 'tz', 'ug'],
+            separateDialCode: true,
+            utilsScript: "/static/build/js/utils.js",
+          });
+        </script>
         
       </div>
       <div class="card-footer subColor">

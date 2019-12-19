@@ -1,0 +1,19 @@
+
+           {% if transactionsz %}
+
+           {% for transaction in transactions %}
+               <div class="{{ transaction['operation'] }}">
+                {{ transaction['_id'] }} confirmed. <b>Ksh.{{ transaction['amount'] }}</b> {{ determineType_function(transaction['operation']) }}
+                {{ transaction['secondPartNo'] }} on {{ transaction['timeStamp'] }}. New <b>Balance is {{ transaction['balance'] }}</b>
+                <br>
+                <b class="float-right">{{ clever_function(transaction['timeStamp']) }} </b>
+                <br>
+
+               </div>
+           {% endfor %}
+           
+           {% else %}
+            <p class="h3">
+              Your transactions appear here once You start transacting
+            </p>
+           {% endif %}

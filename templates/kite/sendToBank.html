@@ -1,0 +1,77 @@
+{% extends "structureadmin.html" %}
+{% include "includes/_defaultNav.html" %}
+{% block body %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<body class="bg-dark">
+  <div class="container">
+    <div class="card card-login mx-auto mt-5">
+      <div class="card-header h3 subColor">
+        <p align="center">Send Money To Bank Account</p>
+      </div>
+      <div class="card-body lightColor">
+
+        <div class="">
+            {% if notification %}
+            {{ notification }}
+            {% else %}
+                {% if error %}
+                  <div class="alert alert-danger alert-dismissible fade show">
+                    <strong>Warning! &nbsp;</strong> {{ error }}
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                  </div>
+                  <br>
+                {% endif %}
+
+                {% if message %}
+                  <div class="alert alert-success alert-dismissible fade show">
+                    <strong>Woow! &nbsp;</strong> {{ message }}
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                  </div>
+                  <br>
+                  
+                {% endif %}
+                <form action="" method="POST" class="form-group">
+                  <input type="text" name="bankName" class="form-control" list="banks" placeholder="Type Bank name">
+                    <datalist id="banks" >
+                      {% if banks %}
+                      {% for bank in banks %}
+                      <option value="{{ bank }}">{{ bank }}</option>
+                      {% endfor %}
+                      
+                      {% endif %}
+                    </datalist>
+                    <br><br>
+                    <!-- <input type="tel" name="accountNo" required id="phone" placeholder="Recipient Account Number" class="form-control"> -->
+                    <input type="text" placeholder="Recipient account Number" class="form-control" id="credit-card" name="credit-card" data-inputmask="'mask': '9999 - 9999 - 9999 - 9999'">
+
+                    <br><br>
+                    <input type="text" placeholder="Enter amount" class="form-control text-left" id="currency" name="amount" data-inputmask="'alias': 'numeric', 'groupSeparator': ',', 'autoGroup': true, 'digits': 2, 'digitsOptional': false, 'prefix': 'Ksh ', 'placeholder': '0'">
+
+                    <!-- <input type="tel" name="amount" id="" required placeholder="Enter Amount" class="form-control" required> -->
+                    <br><br>
+                    <input type="submit" value="Send" name="" id="" class="form-control btn btn-success" >
+                </form>
+                {% endif %}
+
+                
+
+        </div>        
+      </div>
+      <div class="card-footer subColor">
+        <h1></h1>
+      </div>
+    </div>
+  </div>
+  <script src="/static/dist/jquery.inputmask.js"></script>
+  <script>
+    // Initialize InputMask
+  $(":input").inputmask();
+  </script>
+</body>
+
+
+
+
+
+{% endblock %}

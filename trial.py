@@ -1,5 +1,3 @@
-import os 
-
-random = os.urandom(64)
-
-print(random)
+value = 1000000.0
+value = '${:,.2f}'.format(value)
+print(value)

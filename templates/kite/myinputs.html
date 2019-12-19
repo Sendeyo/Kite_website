@@ -1,0 +1,120 @@
+{% extends "structureadmin.html" %}
+{% include "includes/_defaultNav.html" %}
+{% block body %}
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="css/inputmask.css" rel="stylesheet" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+<input id="test1" name="test1"/><br/>
+<input id="test2" name="test2"/><br/>
+<input id="test3" name="test3"/><br/>
+<br/>
+<script type="text/javascript" src="node_modules/jquery/dist/jquery.js" charset="utf-8"></script>
+<script type="text/javascript" src="/static/dist/jquery.inputmask.js" charset="utf-8"></script>
+<script>
+	console.log(navigator.userAgent);
+    $("#test1").inputmask("datetime", {
+        inputFormat: "dd/mm/yyyy",
+        outputFormat: "mm-yyyy-dd",
+        inputEventOnly: true
+    });
+    $("#test2").inputmask("datetime", {
+        inputFormat: "dd/mm/yyyy",
+        outputFormat: "mm-yyyy-dd",
+        inputEventOnly: true
+    });
+    $("#test3").inputmask("datetime", {
+        inputFormat: "dd/mm/yyyy",
+        outputFormat: "mm-yyyy-dd",
+        inputEventOnly: true
+    });
+</script>
+</body>
+</html> -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  </head>
+  <body>
+    
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <div class="jumbotron my-4">
+          <!-- <h1>Input mask for Bootstrap 4 Advanced Components</h1>
+          <p class="lead">by djibe.</p>
+          <p>
+            Dependencies : jQuery and <a href="https://github.com/RobinHerbots/Inputmask" target="_blank">Input mask plugin</a> (5.0.0-beta 87)<br> An equivalent plugin is <a href="https://github.com/jaridmargolin/formatter.js" target="_blank">Formatter</a>.
+          </p>
+          <p>
+            Works with input type="text", "search", "tel", "password", &lt;textarea&gt;, &lt;div contenteditable="true"&gt;<br> Try the demos below
+          </p> -->
+          <h2>
+            Demo
+          </h2>
+          <form role="form" id="my-form">
+            <!-- <div class="form-group">
+              <label for="date">Date (French)</label>
+              <input type="text" class="form-control" id="date" name="date" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-inputmask-placeholder="jj/mm/aaaa">
+            </div>
+            <div class="form-group">
+              <label for="time">Time (12h)</label>
+              <input type="text" class="form-control" id="time" name="time" data-inputmask-alias="datetime" data-inputmask-inputformat="hh:MM" data-inputmask-placeholder="hh:mm">
+            </div>
+            <div class="form-group">
+              <label for="time24">Time (24h)</label>
+              <input type="text" class="form-control" id="time24" name="time24" data-inputmask-alias="datetime" data-inputmask-inputformat="HH:MM" data-inputmask-placeholder="hh:mm">
+            </div>
+            <div class="form-group">
+              <label for="datetime">Date and Time</label>
+              <input type="text" class="form-control" id="datetime" name="datetime" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy HH:MM" data-inputmask-placeholder="jj/mm/aaaa hh:mm">
+            </div> -->
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="text" class="form-control" id="email" name="email" data-inputmask="'alias': 'email'">
+            </div>
+            <div class="form-group">
+              <label for="credit-card">Credit card number</label>
+              <input type="text" class="form-control" id="credit-card" name="credit-card" data-inputmask="'mask': '9999 - 9999 - 9999 - 9999'">
+            </div>
+            <div class="form-group">
+              <label for="currency">Currency</label>
+              <input type="text" class="form-control text-left" id="currency" name="currency" data-inputmask="'alias': 'numeric', 'groupSeparator': ',', 'autoGroup': true, 'digits': 2, 'digitsOptional': false, 'prefix': '€ ', 'placeholder': '0'">
+            </div>
+            <!-- <div class="form-group">
+              <label for="license-plate">French license plate</label>
+              <input type="text" class="form-control" id="license-plate" name="license-plate" data-inputmask="'mask': 'AA-999-AA'">
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone number (French)</label>
+              <input type="text" class="form-control" id="phone" name="phone" data-inputmask="'mask': '+33 9 99 99 99 99'">
+            </div>
+            <div class="form-group">
+              <label for="ip">IP address</label>
+              <input type="text" class="form-control" id="ip" name="ip" data-inputmask="'alias': 'ip'">
+            </div> -->
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="/static/dist/jquery.inputmask.js"></script>
+
+  <script>
+    // Initialize InputMask
+  $(":input").inputmask();
+  </script>
+  
+    
+
+
+
+{% endblock %}
