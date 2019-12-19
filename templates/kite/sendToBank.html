@@ -5,7 +5,7 @@
 
 <body class="bg-dark">
   <div class="container">
-    <div class="card card-login mx-auto mt-5">
+    <div class="card card-login mx-auto">
       <div class="card-header h3 subColor">
         <p align="center">Send Money To Bank Account</p>
       </div>
@@ -41,15 +41,17 @@
                       
                       {% endif %}
                     </datalist>
-                    <br><br>
+                    <br>
                     <!-- <input type="tel" name="accountNo" required id="phone" placeholder="Recipient Account Number" class="form-control"> -->
-                    <input type="text" placeholder="Recipient account Number" class="form-control" id="credit-card" name="credit-card" data-inputmask="'mask': '9999 - 9999 - 9999 - 9999'">
+                    <input type="text" placeholder="Recipient account Number" class="form-control" id="credit-card" name="credit-card" >
 
-                    <br><br>
+                    <br>
                     <input type="text" placeholder="Enter amount" class="form-control text-left" id="currency" name="amount" data-inputmask="'alias': 'numeric', 'groupSeparator': ',', 'autoGroup': true, 'digits': 2, 'digitsOptional': false, 'prefix': 'Ksh ', 'placeholder': '0'">
 
                     <!-- <input type="tel" name="amount" id="" required placeholder="Enter Amount" class="form-control" required> -->
-                    <br><br>
+                    <br>
+                      <textarea name="description" id="" placeholder="Description" cols="30" rows="1" class="form-control" maxlength="50"></textarea>
+                  <br><br>
                     <input type="submit" value="Send" name="" id="" class="form-control btn btn-success" >
                 </form>
                 {% endif %}

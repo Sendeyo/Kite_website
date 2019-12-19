@@ -50,7 +50,7 @@
 
            {% for transaction in transactions %}
                <div class="{{ transaction['operation'] }}">
-                {{ transaction['_id'] }} Confirmed. <b>{{ make_it_money(transaction['amount']) }}</b> {{ determineType_function(transaction['operation']) }}
+                Transaction Confirmed. <b>{{ make_it_money(transaction['amount']) }}</b> {{ determineType_function(transaction['operation']) }}
                 on {{ transaction_date_format(transaction['timeStamp']) }}. New <b>Balance is {{ make_it_money(transaction['balance']) }}</b>
                 <br>
                 <b class="float-right">{{ clever_function(transaction['timeStamp']) }} </b>

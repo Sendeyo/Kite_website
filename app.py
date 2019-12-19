@@ -116,6 +116,7 @@ def Register():
             number = {"phoneNo":phoneNumber}
             responce = apis.VerifyNumber(number)
             if responce.status_code == 200:
+                session["phoneNo"]= phoneNumber
                 time.sleep(1)
                 return redirect("/passwordVerification")
             else:
@@ -138,11 +139,16 @@ def PassVerification():
             return render_template("/kite/setPassword.html", error="Password missmatch")
         else:
             credentials = {"username":username, "password":password}
-            res = apis.CreateAccount(credentials ,session["phoneNo"], otp)
-            if res.status_code == 200:
-                return redirect("/")
-            else:
-                return render_template("/kite/setPassword.html", message=res.text)
+            try:
+                res = apis.CreateAccount(credentials ,session["phoneNo"], otp)
+                if res.status_code == 200:
+                    return redirect("/")
+                else:
+                    return render_template("/kite/setPassword.html", message=res.text)
+            except Exception as e:
+                print(e)
+                return render_template("/kite/setPassword.html", error="Verification failed Try again")
+            
     else:
         message = "Please Use the Otp sent to your phone"
         return render_template("/kite/setPassword.html", message=message)
@@ -176,6 +182,8 @@ def Tiles(tile):
         return redirect("/sendToWallet")
     elif tile == "Send to Bank":
         return redirect("/sendToBank")
+    elif tile == "Send to Mpesa":
+        return redirect("/sendToMpesa")
     elif tile == "Top Up":
         return redirect("/Top Up")
     elif tile == "Admin Panel":
@@ -201,7 +209,7 @@ def Profile():
 
 @app.route("/demo")
 def Demo():
-    return render_template("/kite/myinputs.html",  userdata=session["userdata"])
+    return render_template("/kite/del.html",  userdata=session["userdata"])
 
 @app.route("/sendToBank", methods = ["GET","POST"])
 def SendToBank():
@@ -216,18 +224,17 @@ def SendToBank():
             print(amount)
             print(recipientNo)
             try:
-                if eval(amount) < 5 or eval(amount) > 50000:
-                    if eval(amount) < 5:
-                        error = "You cant send less than ksh 5.00"
-                    elif eval(amount) < 50000:
-                        error = "You cant send More than ksh 50,000.00"
-                    return render_template("/kite/sendToBank.html", userdata = session["userdata"], banks = banks, error=error)
+                if eval(amount) < 5:# or eval(amount) > 50000:
+                    error = "You cant send less than ksh 5.00"
+                    return render_template("/kite/sendToBank.html", userdata = session["userdata"], banks = banks, error=error)                                    
+                elif eval(amount) > 50000:
+                    error = "You cant send More than ksh 50,000.00"
+                    return render_template("/kite/sendToBank.html", userdata = session["userdata"], banks = banks, error=error)                
                 else:
-                    error = "perfect"
+                    error = "Congrats test success"
                     return render_template("/kite/sendToBank.html", userdata = session["userdata"], banks = banks, error=error)
             except Exception as e:
                 error = e
-                print(e)
                 return render_template("/kite/sendToBank.html", userdata = session["userdata"], banks = banks, error=error)
             data = {
                         "accountNumber": amount,
@@ -243,6 +250,38 @@ def SendToBank():
 
 @app.route("/sendToWallet", methods = ["GET", "POST"])
 def SendToWallet():
+    if "userdata" in session:
+        if request.method == "POST":
+            account = request.form["accountNo"]
+            amount = request.form["amount"]
+
+            if eval(amount) < 5:
+                error = "You cant Transact less than ksh 5.00"
+                return render_template("/kite/sendToWallet.html", userdata = session["userdata"], error = error)
+            elif eval(amount) > 50000:
+                error = "You cant Transact More than ksh 50000.00"
+                return render_template("/kite/sendToWallet.html", userdata = session["userdata"], error = error)
+            else:
+                data ={
+                "amount": amount,
+                "recipientNo": "0010{}".format(account[-8:])
+                }
+                responce = apis.WalletToWallet(session["phoneNumber"], session["password"], data)
+                if responce.status_code == 200:
+                    message = "Sending Ksh {} to {} Scuccessful". format(amount, account)
+                    return render_template("/kite/sendToWallet.html", userdata = session["userdata"], message = message)
+                else:
+                    error = responce.text
+                    return render_template("/kite/sendToWallet.html", userdata = session["userdata"], notification = error)
+        else:
+            pass
+        return render_template("/kite/sendToWallet.html", userdata = session["userdata"])
+    else:
+        return redirect("/")
+
+
+@app.route("/sendToMpesa", methods = ["GET", "POST"])
+def SendToMpesa():
     if "userdata" in session:
         if request.method == "POST":
             account = request.form["accountNo"]
@@ -307,14 +346,16 @@ def ChooseMethod():
                     print("card means")
                     cardNo = request.form["cardNo"]
                     cvv = request.form["cvv"]
+                    month = request.form["month"]
+                    year = request.form["month"]
                     walletNo = request.form["walletNo"]
                     amount = request.form["amount"]
                     email = request.form["email"]
                     reeee = {
                     	  "cardNo": cardNo,
                     	  "cvv": cvv,
-                    	  "expiryMonth": "01",
-                    	  "expiryYear": "21",
+                    	  "expiryMonth": month,
+                    	  "expiryYear": year,
                     	  "amount": amount,
                     	  "email": email,
                     	  "walletNo": "0010{}".format(walletNo[-8:]),

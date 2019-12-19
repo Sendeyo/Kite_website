@@ -38,10 +38,11 @@ def VerifyNumber(number):# Verify a number by getting a token
         print("failed to send otp")
         return "failed to send otp"
 #  
+number = {"phoneNo":"254775885913"}
 # number = {"phoneNo":"254715232942"}
-# responce  = VerifyNumber(number)
-# print(responce)
-# print(responce.text)
+responce  = VerifyNumber(number)
+print(responce)
+print(responce.text)
 
 
 
