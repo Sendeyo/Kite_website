@@ -344,16 +344,22 @@ def ChooseMethod():
                     elif responce.status_code == 400:
                         message = res["errorMessage"]
                         return render_template("/kite/chooseMethod.html", userdata=session["userdata"], error=message)
-                        
+
                 elif request.form["paymentMethod"] == "card":
+
                     print("card means")
+                    print("this is funny")
                     cardNo = request.form["cardNo"]
                     cvv = request.form["cvv"]
                     month = request.form["month"]
-                    year = request.form["month"]
+                    year = request.form["year"]
                     walletNo = request.form["walletNo"]
                     amount = request.form["amount"]
                     email = request.form["email"]
+                    cardNo = cardNo.replace(" - ", "")
+                    if eval(amount) > 50000:
+                        error = "Sorry cant send more than ksh 50000"
+                        return render_template("/kite/chooseMethod.html", userdata=session["userdata"], error = error)
                     reeee = {
                     	  "cardNo": cardNo,
                     	  "cvv": cvv,
@@ -364,17 +370,20 @@ def ChooseMethod():
                     	  "walletNo": "0010{}".format(walletNo[-8:]),
                     	  "callbackUrl": apis.ip
                     }
-                    responce = apis.CardToWallet("254715232942", "1234", reeee).json()
-                    print(responce["body"]["data"]["authurl"])
-                    
-                    return redirect(responce["body"]["data"]["authurl"])
+                    print(reeee)
+                    try:
+                        responce = apis.CardToWallet(session["phoneNumber"], session["password"], reeee).json()
+                        return redirect(responce["body"]["data"]["authurl"])
+                    except Exception as e:
+                        error = "Sorry an error occured"
+                        return render_template("/kite/chooseMethod.html", userdata=session["userdata"], error = error)
                 else:
                     print("unspecified method")
 
             else:
                 return render_template("/kite/chooseMethod.html", userdata=session["userdata"])
         except:
-            return render_template("/kite/chooseMethod.html", userdata=session["userdata"])
+            return render_template("/kite/chooseMethod.html", userdata=session["userdata"], error = "Sorry Process failed")
 
     else:
         return redirect("/")

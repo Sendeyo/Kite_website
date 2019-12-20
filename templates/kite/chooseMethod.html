@@ -167,18 +167,19 @@
               <div class="container-fluid">
                   <form action="" method="POST" class="form-group" name="Card">
                       <span>Card Number</span>
-                      <input type="text" class="form-control" placeholder="Card Number" id="credit-card" name="cardNo" data-inputmask="'mask': '9999 - 9999 - 9999 - 9999'">
+                      <input readonly type="text" class="form-control" value="4242 - 4242 - 4242 - 4242" placeholder="Card Number" id="credit-card" name="cardNo" data-inputmask="'mask': '9999 - 9999 - 9999 - 9999'">
 
                       <!-- <input type="number" name="cardNo" value="4242424242424242" placeholder="Card Number" required class="form-control" data-inputmask="'mask': '9999 - 9999 - 9999 - 9999'"> -->
                       <br>
                       <span>Card Verification Value (cvv)</span>
-                      <input type="number" maxlength="3" name="cvv" placeholder="CVV value" value="812" required class="form-control">
+                      <input readonly type="number" maxlength="3" name="cvv" placeholder="CVV value" value="812" required class="form-control">
                       <br>
 
                         <div class="form-inline row">
                           <div class="form-group mx-auto mb-2">
-                            <input type="number" value="month" class="col-xs-2" id="inputPassword2" placeholder="Expiry Month"> &nbsp; / &nbsp;
-                            <input type="number" value="year" class="col-xs-2" id="inputPassword2" placeholder="Expiry Year">
+                            Expiry: 
+                            <input readonly type="number" value="01"  name="month" class="col-xs-2" placeholder="Expiry Month"> &nbsp; / &nbsp;
+                            <input readonly type="number" value="21" name="year" class="col-xs-2" placeholder="Expiry Year">
                           </div>
                         </div>
 
@@ -192,6 +193,7 @@
                       <span>Email</span>
                       <input type="email" name="email" placeholder="Emailaddress" required class="form-control">
                       <br>
+                      <input type="" name="paymentMethod" value="card" id="" hidden>
                       <input type="submit" value="Send" name="card" class="form-control btn btn-success">
                   </form>
   
