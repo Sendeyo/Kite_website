@@ -17,13 +17,13 @@
               <br><br>
               <p align="justify">
                 <br>
-                Wallet Id: <span>{{ userdata["wallet"][0]["walletNo"] }}</span>
+                Wallet ID: <span>{{ userdata["wallet"][0]["walletNo"] }}</span>
                 <hr>
                 <button class="btn btn-info" data-container="body" 
                   data-toggle="popover" 
                   data-placement="top" 
                   data-content="  {{ make_it_money(userdata['wallet'][0]['balance']) }}" 
-                  data-original-title="" title="Balance">Show balance</button>
+                  data-original-title="" title="Balance">Show Balance</button>
 
   
                 <!-- <div class="container">
@@ -48,9 +48,12 @@
 
            {% if transactions %}
 
+           
+
            {% for transaction in transactions %}
                <div class="{{ transaction['operation'] }}">
                 Transaction Confirmed. <b>{{ make_it_money(transaction['amount']) }}</b> {{ determineType_function(transaction['operation']) }}
+                {{ transaction['secondPartNo'] }}
                 on {{ transaction_date_format(transaction['timeStamp']) }}. New <b>Balance is {{ make_it_money(transaction['balance']) }}</b>
                 <br>
                 <b class="float-right">{{ clever_function(transaction['timeStamp']) }} </b>

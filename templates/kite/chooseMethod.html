@@ -3,10 +3,15 @@
 {% block body %}
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="/static/build/css/intlTelInput.css">
+  <link rel="stylesheet" href="/static/build/css/demo.css">
+</head>
 <body class="bg-dark">
         <div class="container">
           <div class="card mx-auto mt-6">
-            <div class="card-header h3 subColor"><p align="center">Choose a wallet topup method</p></div>
+            <div class="card-header h3 subColor"><p align="center">Wallet Top Up</p></div>
             <div class="card-body lightColor">
 
                     {% if message %}
@@ -85,7 +90,7 @@
             <div class="mr-5 h3">Bank Cards</div>
           </div>
           <a class="card-footer text-white clearfix small z-1" href="#" data-toggle="modal" data-target="#cardModal">
-            <span class="float-left">Use bank <b>Cards</b></span>
+            <span class="float-left">Use Bank <b>Card</b></span>
             <span class="float-right">
               <i class="fas fa-angle-right"></i>
             </span>
@@ -107,7 +112,7 @@
       
         <!-- Modal Header -->
         <div class="modal-header">
-          <h4 class="modal-title">Top Up wallet Via Mpesa</h4>
+          <h4 class="modal-title">Mpesa Wallet Top Up</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
         
@@ -116,14 +121,16 @@
 
             <div class="container-fluid">
                 <form action="" method="POST" class="form-group" name="payment">
-                        <span>Phone Number</span>
+                        <span>Mpesa Number</span>
                     <input type="number" name="phoneNo" value= {{ userdata['phoneNo'] }} required class="form-control">
                     <br>
                     <span>Wallet Number</span>
                     <input type="tel" name="walletNo"  required  class="form-control" value= {{ userdata['wallet'][0]['walletNo'] }}>
                     <br>
                     <span>Amount</span>
-                    <input type="number" name="amount" placeholder="Amount to send" required class="form-control">
+                    <input type="text" placeholder="Enter Amount" class="form-control text-left" id="currency" name="amount" data-inputmask="'alias': 'numeric', 'groupSeparator': ',', 'autoGroup': true, 'digits': 2, 'digitsOptional': false, 'prefix': 'Ksh ', 'placeholder': '0'">
+
+                    <!-- <input type="number" name="amount" placeholder="Amount To Top Up" required class="form-control"> -->
                     <br>
                     <input type="" name="paymentMethod" value="mpesa" id="" hidden>
                     <input type="submit" value="Send" name="mpesa" class="form-control btn btn-success">
@@ -157,7 +164,7 @@
         
           <!-- Modal Header -->
           <div class="modal-header">
-            <h4 class="modal-title">Top Up wallet Via Card</h4>
+            <h4 class="modal-title">Bank Card Wallet Top Up</h4>
             <button type="button" class="close" data-dismiss="modal">&times;</button>
           </div>
           
@@ -175,11 +182,12 @@
                       <input readonly type="number" maxlength="3" name="cvv" placeholder="CVV value" value="812" required class="form-control">
                       <br>
 
-                        <div class="form-inline row">
+                        <div class="f">
                           <div class="form-group mx-auto mb-2">
-                            Expiry: 
-                            <input readonly type="number" value="01"  name="month" class="col-xs-2" placeholder="Expiry Month"> &nbsp; / &nbsp;
-                            <input readonly type="number" value="21" name="year" class="col-xs-2" placeholder="Expiry Year">
+                            Month: 
+                            <input readonly maxlength="2" type="number" value="01"  name="month" class="form-control" placeholder="Expiry Month"> <br>
+                            Year:
+                            <input readonly maxlength="2" type="number" value="21" name="year" class="form-control" placeholder="Expiry Year">
                           </div>
                         </div>
 
@@ -188,10 +196,12 @@
                       <input type="tel" name="walletNo"  required  class="form-control" value= {{ userdata['wallet'][0]['walletNo'] }}>
                       <br>
                       <span>Amount</span>
-                      <input type="number" name="amount" value="10" placeholder="Amount to send" required class="form-control">
+                      <input type="text" placeholder="Enter Amount" class="form-control text-left" id="currency" name="amount" data-inputmask="'alias': 'numeric', 'groupSeparator': ',', 'autoGroup': true, 'digits': 2, 'digitsOptional': false, 'prefix': 'Ksh ', 'placeholder': '0'">
+
+                      <!-- <input type="number" name="amount" value="10" placeholder="Amount to send" required class="form-control"> -->
                       <br>
                       <span>Email</span>
-                      <input type="email" name="email" placeholder="Emailaddress" required class="form-control">
+                      <input type="email" name="email" placeholder="Email" required class="form-control">
                       <br>
                       <input type="" name="paymentMethod" value="card" id="" hidden>
                       <input type="submit" value="Send" name="card" class="form-control btn btn-success">

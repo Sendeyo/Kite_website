@@ -27,9 +27,9 @@ mail = Mail(app)
 
 def determineType_function(operation):
     if operation == "send":
-        return "Sent to your Wallet from xxxxxxxxxxxxxxx"
-    else:
-        return "sent to **** from your Wallet"
+        return "Sent to "
+    elif operation == "receive":
+        return "Recieved from "
 
 def make_it_money(value):
     value = 'Ksh {:,.2f}'.format(value)
@@ -254,6 +254,7 @@ def SendToWallet():
         if request.method == "POST":
             account = request.form["accountNo"]
             amount = request.form["amount"]
+            amount = amount.replace("Ksh ","")
 
             if eval(amount) < 5:
                 error = "You cant Transact less than ksh 5.00"
@@ -268,7 +269,7 @@ def SendToWallet():
                 }
                 responce = apis.WalletToWallet(session["phoneNumber"], session["password"], data)
                 if responce.status_code == 200:
-                    message = "Sending Ksh {} to {} Scuccessful". format(amount, account)
+                    message = " Ksh {} sent to {}". format(amount, account)
                     return render_template("/kite/sendToWallet.html", userdata = session["userdata"], message = message)
                 else:
                     error = responce.text
@@ -286,6 +287,7 @@ def SendToMpesa():
         if request.method == "POST":
             account = request.form["accountNo"]
             amount = request.form["amount"]
+            amount = amount.replace("Ksh ","")
 
             if eval(amount) < 5:
                 error = "You cant Transact less than ksh 5.00"
@@ -325,6 +327,7 @@ def ChooseMethod():
                     number = request.form["phoneNo"]
                     wallet = request.form["walletNo"]
                     amount = request.form["amount"]
+                    amount = amount.replace("Ksh ","")
                     data = {
                             	"amount": amount,
                             	"phoneNo": "254{}".format(number[-9:]),
@@ -335,7 +338,7 @@ def ChooseMethod():
                     responce = apis.MpesaToWallet(session["phoneNumber"], session["password"], data)
                     res = responce.json()
                     if responce.status_code == 200:
-                        message = "Check phone holding Number {} to complete transaction".format(
+                        message = "Check phone holding number {} to complete transaction.".format(
                             number)
                         return render_template("/kite/chooseMethod.html", userdata=session["userdata"], message=message)
                     elif responce.status_code == 500:
@@ -357,6 +360,7 @@ def ChooseMethod():
                     amount = request.form["amount"]
                     email = request.form["email"]
                     cardNo = cardNo.replace(" - ", "")
+                    amount = amount.replace("Ksh ","")
                     if eval(amount) > 50000:
                         error = "Sorry cant send more than ksh 50000"
                         return render_template("/kite/chooseMethod.html", userdata=session["userdata"], error = error)

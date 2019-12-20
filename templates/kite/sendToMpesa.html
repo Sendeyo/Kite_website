@@ -2,6 +2,7 @@
 {% include "includes/_defaultNav.html" %}
 {% block body %}
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <head>
   <meta charset="utf-8">
   <link rel="stylesheet" href="/static/build/css/intlTelInput.css">
@@ -40,13 +41,20 @@
 
                     <input type="tel" name="accountNo" required id="phone" placeholder="Recipient Number" class="form-control">
                     <br><br>
-                    <input type="tel" name="amount" id="" required placeholder="Enter Amount" class="form-control" required>
+                    <input type="text" placeholder="Enter Amount" class="form-control text-left" id="currency" name="amount" data-inputmask="'alias': 'numeric', 'groupSeparator': ',', 'autoGroup': true, 'digits': 2, 'digitsOptional': false, 'prefix': 'Ksh ', 'placeholder': '0'">
+
+                    <!-- <input type="tel" name="amount" id="" required placeholder="Enter Amount" class="form-control" required> -->
                     <br><br>
                     <input type="submit" value="Send" name="" id="" class="form-control btn btn-success" >
                 </form>
                 {% endif %}
 
         </div>
+        <script src="/static/dist/jquery.inputmask.js"></script>
+        <script>
+          // Initialize InputMask
+        $(":input").inputmask();
+        </script>
         <script src="/static/build/js/intlTelInput.js"></script>
         <script>
           var input = document.querySelector("#phone");
