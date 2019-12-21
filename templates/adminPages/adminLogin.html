@@ -1,0 +1,24 @@
+{% include "includes/structureadmin.html" %}
+
+{% block Contant %}
+<body class="mainColor">
+    <div class="container-fluid row">
+        <div class="col-md-8"></div>
+        <div class="col-md-4">
+            <div class="card bg-danger mt-5 mx-auto">
+                <div class="card-header"> Admin login</div>
+                <div class="card-body">
+                    <form action="" method="POST" class="form-group">
+                        <input type="email" placeholder="Email" required name="email" class="form-control">
+                        <br>
+                        <input type="password" placeholder="Password" required name="password" class="form-control">
+                        <br>
+                        <input type="submit" name="send" value="Login" id="" class="form-control btn btn-success">
+                    </form>
+                </div>
+                <div class="card-footer"> <a href="/" class="btn btn-default">Cancel</a></div>
+            </div>
+        </div>
+    </div>    
+</body>
+{% endblock Contant %}

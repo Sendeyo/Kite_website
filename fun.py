@@ -16,9 +16,11 @@ def Convert4User(date):
     times =dt.strftime("%b %d - %Y at %H :%M:%S")
     return times
 
-def TimeJoke():
-    t = time.time()
-    print(t)
+def Convert4Admin(date):
+    dt = parse(date)
+    dt = dt + timedelta(hours=3)
+    times =dt.strftime("%H :%M:%S --------  %b %d - %Y")
+    return times
 
 
 # TimeJoke()

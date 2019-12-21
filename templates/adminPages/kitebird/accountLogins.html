@@ -1,0 +1,67 @@
+{% extends 'includes/fullstructure.html' %}
+{% block Content %}
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+      <a href="/dashboard">Kitebird</a>
+    </li>
+    <li class="breadcrumb-item active">All Created Wallets</li>
+  </ol>
+
+  <!-- DataTables Example -->
+<div class="card mb-3">
+    <div class="card-header">
+      <i class="fas fa-table"></i>
+      Created wallets</div>
+    <div class="card-body">
+      <div class="table-responsive">
+      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Transaction id</th>
+                <th>Phone Number</th>
+                <th>Username</th>
+                <th>Date & time</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if logs %}
+
+            {% for log in logs["body"] %}
+                <tr>
+                   <td>{{ log["_id"] }}</td>
+                   <td>
+                     {% if log["owner"]["phoneNo"] %}
+                     {{ log["owner"]["phoneNo"] }}
+                     {% else %}
+                     PhoneNo unavailable
+                     {% endif %}
+                   </td>
+                   <td>
+                    {% if log["owner"]["username"] %}
+                    {{ log["owner"]["username"] }}
+                    {% else %}
+                    Username unavailable
+                    {% endif %}
+                   </td>
+                   <td>{{ admin_date_format(log["datetimeCreated"]) }}</td>
+                </tr>
+            {% endfor %}
+            
+            {% else %}
+            
+            {% endif %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>Transaction id</th>
+                <th>Phone Number</th>
+                <th>Username</th>
+                <th>Date & time</th>d>
+            </tr>
+        </tfoot>
+    </table>
+<!-- Datatable example -->
+
+
+
+{% endblock Content %}

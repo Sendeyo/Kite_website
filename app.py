@@ -38,11 +38,16 @@ def make_it_money(value):
 def transaction_date_format(date):
     convertedDate = fun.Convert4User(date)
     return convertedDate
+    
+def admin_date_format(date):
+    convertedDate = fun.Convert4Admin(date)
+    return convertedDate
 
 
 app.jinja_env.globals.update(determineType_function=determineType_function)
 app.jinja_env.globals.update(make_it_money=make_it_money)
 app.jinja_env.globals.update(transaction_date_format=transaction_date_format)
+app.jinja_env.globals.update(admin_date_format=admin_date_format)
 
 
 
@@ -401,26 +406,85 @@ def ChooseMethod():
 # #####/###########\#####|#########|#####|#####################################################
 # #############################################################################################
 
+
+
 @app.route("/adminLogin", methods = ["GET", "POST"])
 def AdminLogin():
     if request.method == "POST":
-        # session["administrator"] = "maxmuthomi@gmail.com"
-        return redirect("/dashboard")
-    else:
-        session["administrator"] = "maxmuthomi@gmail.com"
-        return redirect("/Dashboard")
+        email = request.form["email"]
+        password = request.form["password"]
+        print(email, password)
+        if email == "admin@email.com" and password == email:
+            print("login")
+            session["administrator"] = email
+            return redirect("/Dashboard")
+    return render_template("adminPages/adminLogin.html")
+
+
 
 
 
 @app.route("/Dashboard/")
 def Dashboard():
     if "administrator" in session:
-        tableData = ["Logs Table"]
-        tableData.append(data.DashData())
+        # tableData = ["Logs Table"]
+        # tableData.append(data.DashData()) ##logs
         reqs = Numbers(data.DashData())
-        return render_template("/adminPages/dashboard.html", dashboard="active", logs=tableData, cardsData=reqs)
+        return render_template("/adminPages/dashboard.html", dashboard="active", cardsData=reqs)
     else:
         return redirect("/adminLogin")
+
+################################## bird logs ########################
+################################## bird logs ########################
+################################## bird logs ########################
+################################## bird logs ########################
+@app.route("/kitebird/otps")
+def OTPS():
+    if "administrator" in session:
+        logs = apis.BirdAllOtps()
+        return render_template("/adminPages/kitebird/otps.html" , kitebird = "active", logs = logs)
+    return redirect("/adminLogin")
+
+    
+
+@app.route("/kitebird/accountCreation")
+def AccountCreation():
+    logs = apis.BirdAccounts()
+    return render_template("/adminPages/kitebird/accountCreation.html" , kitebird = "active", logs = logs)
+
+
+@app.route("/kitebird/accountLogins")
+def WalletLogins():
+    logs = apis.BirdLogins()
+    return render_template("/adminPages/kitebird/accountLogins.html" , kitebird = "active", logs = logs)
+
+
+
+@app.route("/kitebird/errorResponses")
+def ErrorResponses():
+    logs = apis.BirdErrors()
+    return render_template("/adminPages/kitebird/errorResponses.html" , kitebird = "active", logs = logs)
+
+
+@app.route("/kitebird/fewResponses")
+def FewResponses():
+    logs = apis.BirdResponces()
+    return render_template("/adminPages/kitebird/fewResponses.html" , kitebird = "active", logs = logs)
+
+@app.route("/kitebird/fewRequests")
+def FewRequests():
+    logs = apis.BirdResponces()
+    return render_template("/adminPages/kitebird/fewRequests.html" , kitebird = "active", logs = logs)
+
+
+
+
+
+
+################################## bird logs ########################
+################################## bird logs ########################
+################################## bird logs ########################
+################################## bird logs ########################
 
 
 reses = []

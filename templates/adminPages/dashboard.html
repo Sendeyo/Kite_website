@@ -2,13 +2,24 @@
 {% block Content %}
 <ol class="breadcrumb">
     <li class="breadcrumb-item">
-      <a href="/dashboard">Dashboard</a>
+      <a href="/dashboard">Marmalade</a>
     </li>
     <li class="breadcrumb-item active">Overview</li>
   </ol>
 
   {% include 'adminPages/widgets/logCards.html' %}
-  {% include 'adminPages/widgets/dataTable.html' %}
+
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">
+      <a href="/dashboard">Kitebird</a>
+    </li>
+    <li class="breadcrumb-item active">Overview</li>
+  </ol>
+
+  {% include 'adminPages/widgets/lineGraph.html' %}
+
+
+
 
 
 {% endblock Content %}

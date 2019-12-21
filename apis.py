@@ -200,6 +200,97 @@ def WalletToBank():
 ###############################################################################
 ###############################################################################
 
+
+##### bird logs ##################
+kitelogsip = "http://18.189.117.13:2028"
+
+def BirdAllOtps():
+    url = "{}/requestedOtps".format(kitelogsip)
+    try:
+        responces = requests.get(url)
+        if responces.status_code == 200:
+            return responces.json()
+        else:
+            print("Bird all otp failed")
+    except Exception as e:
+        pass
+
+# res=BirdAllOtps()
+# print(res)
+
+def BirdAccounts():
+    url = "{}/accounts".format(kitelogsip)
+    try:
+        responces = requests.get(url)
+        if responces.status_code == 200:
+            return responces.json()
+        else:
+            print("Bird all otp failed")
+    except Exception as e:
+        pass
+
+# res=BirdAccounts()
+# print(res.text)
+
+def BirdLogins():
+    url = "{}/logins".format(kitelogsip)
+    try:
+        responces = requests.get(url)
+        if responces.status_code == 200:
+            return responces.json()
+        else:
+            print("Bird all otp failed")
+    except Exception as e:
+        pass
+
+# res=BirdLogins()
+# print(res.text)
+
+def BirdErrors():
+    url = "{}/errorResponses".format(kitelogsip)
+    try:
+        responces = requests.get(url)
+        if responces.status_code == 200:
+            return responces.json()
+        else:
+            print("Bird all otp failed")
+    except Exception as e:
+        pass
+
+# res=BirdErrors()
+# print(res)
+
+
+
+def BirdResponces():
+    url = "{}/responses".format(kitelogsip)
+    try:
+        responces = requests.get(url)
+        if responces.status_code == 200:
+            return responces.json()
+        else:
+            print("Bird all otp failed")
+    except Exception as e:
+        pass
+
+
+def BirdRequests():
+    url = "{}/requests".format(kitelogsip)
+    try:
+        responces = requests.get(url)
+        if responces.status_code == 200:
+            return responces.json()
+        else:
+            print("Bird all otp failed")
+    except Exception as e:
+        pass
+
+
+
+##################
+##### end bird logs ##################
+
+
 def Reqs():
     request = requests.get('http://18.189.117.13:2011/requests')
     data = request.json()
