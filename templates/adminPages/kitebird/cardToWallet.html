@@ -4,22 +4,25 @@
     <li class="breadcrumb-item">
       <a href="/dashboard">Kitebird</a>
     </li>
-    <li class="breadcrumb-item active">Last 60 Requests</li>
+    <li class="breadcrumb-item active">Card to Wallet Transactions</li>
   </ol>
 
   <!-- DataTables Example -->
 <div class="card mb-3">
     <div class="card-header">
       <i class="fas fa-table"></i>
-      Requests</div>
+      Card to Wallet</div>
     <div class="card-body">
       <div class="table-responsive">
       <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
         <thead>
             <tr>
                 <th>Transaction id</th>
-                <th>Account</th>
-                <th>Request type</th>
+                <th>Sender</th>
+                <th>Recipient</th>
+                <th>Amount</th>
+                <th>Cost</th>
+                <th>State</th>
                 <th>Date & time</th>
             </tr>
         </thead>
@@ -29,8 +32,11 @@
             {% for log in logs["body"] %}
                 <tr>
                    <td>{{ log["_id"] }}</td>
-                   <td>{{ log["account"] }}</td>
-                   <td>{{ log["requestType"] }}</td>
+                   <td>{{ log["senderNo"] }}</td>
+                   <td>{{ log["recipientNo"] }}</td>
+                   <td>{{ log["amount"] }}</td>
+                   <td>{{ log["cost"] }}</td>
+                   <td>{{ log["state"] }}</td>
                    <td>{{ admin_date_format(log["timeStamp"]) }}</td>
                 </tr>
             {% endfor %}
@@ -38,13 +44,17 @@
             {% else %}
             
             {% endif %}
+            
         </tbody>
         <tfoot>
             <tr>
                 <th>Transaction id</th>
-                <th>Phone Number</th>
-                <th>Otp issued</th>
-                <th>Date & time</th>d>
+                <th>Sender</th>
+                <th>Recipient</th>
+                <th>Amount</th>
+                <th>Cost</th>
+                <th>State</th>
+                <th>Date & time</th>
             </tr>
         </tfoot>
     </table>

@@ -410,14 +410,15 @@ def ChooseMethod():
 
 @app.route("/adminLogin", methods = ["GET", "POST"])
 def AdminLogin():
+    # session["administrator"] = "email"
     if request.method == "POST":
         email = request.form["email"]
         password = request.form["password"]
         print(email, password)
-        if email == "admin@email.com" and password == email:
-            print("login")
-            session["administrator"] = email
-            return redirect("/Dashboard")
+        if email == password:
+            if email == "admin@email.com":
+                session["administrator"] = email
+                return redirect("/Dashboard")
     return render_template("adminPages/adminLogin.html")
 
 
@@ -471,10 +472,29 @@ def FewResponses():
     logs = apis.BirdResponces()
     return render_template("/adminPages/kitebird/fewResponses.html" , kitebird = "active", logs = logs)
 
+
 @app.route("/kitebird/fewRequests")
 def FewRequests():
-    logs = apis.BirdResponces()
+    logs = apis.BirdRequests()
     return render_template("/adminPages/kitebird/fewRequests.html" , kitebird = "active", logs = logs)
+
+
+@app.route("/kitebird/walletToWallet")
+def WalletToWallet():
+    logs = apis.BirdWalletWallet()
+    return render_template("/adminPages/kitebird/walletToWallet.html" , kitebird = "active", logs = logs)
+
+
+@app.route("/kitebird/cardToWallet")
+def CardToWallet():
+    logs = apis.BirdCardWallet()
+    return render_template("/adminPages/kitebird/cardToWallet.html" , kitebird = "active", logs = logs)
+
+
+@app.route("/kitebird/mpesaToWallet")
+def MpesaToWallet():
+    logs = apis.BirdMpesaWallet()
+    return render_template("/adminPages/kitebird/walletToWallet.html" , kitebird = "active", logs = logs)
 
 
 

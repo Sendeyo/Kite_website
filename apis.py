@@ -286,6 +286,42 @@ def BirdRequests():
         pass
 
 
+def BirdWalletWallet():
+    url = "{}/walletTransactions".format(kitelogsip)
+    try:
+        responces = requests.get(url)
+        if responces.status_code == 200:
+            return responces.json()
+        else:
+            print("Bird all otp failed")
+    except Exception as e:
+        pass
+
+
+def BirdCardWallet():
+    url = "{}/cardTransactions".format(kitelogsip)
+    try:
+        responces = requests.get(url)
+        if responces.status_code == 200:
+            return responces.json()
+        else:
+            print("Bird all otp failed")
+    except Exception as e:
+        pass
+
+
+def BirdMpesaWallet():
+    url = "{}/mpesaTransactions".format(kitelogsip)
+    try:
+        responces = requests.get(url)
+        if responces.status_code == 200:
+            return responces.json()
+        else:
+            print("Bird all otp failed")
+    except Exception as e:
+        pass
+
+
 
 ##################
 ##### end bird logs ##################

@@ -18,8 +18,10 @@
         <thead>
             <tr>
                 <th>Transaction id</th>
+                <th>Responce type</th>
+                <th>Account type</th>
                 <th>Phone Number</th>
-                <th>Otp issued</th>
+                <th>Username</th>
                 <th>Date & time</th>
             </tr>
         </thead>
@@ -29,9 +31,11 @@
             {% for log in logs["body"] %}
                 <tr>
                    <td>{{ log["_id"] }}</td>
-                   <td>{{ log["phoneNo"] }}</td>
-                   <td>{{ log["username"] }}</td>
-                   <td>{{ admin_date_format(log["datetimeCreated"]) }}</td>
+                   <td>{{ log["responseType"] }}</td>
+                   <td>{{ log["responseBody"]["body"]["accountType"] }}</td>
+                   <td>{{ log["responseBody"]["body"]["phoneNo"] }}</td>
+                   <td>{{ log["responseBody"]["body"]["username"] }}</td>
+                   <td>{{ admin_date_format(log["timeStamp"]) }}</td>
                 </tr>
             {% endfor %}
             
@@ -42,9 +46,11 @@
         <tfoot>
             <tr>
                 <th>Transaction id</th>
+                <th>Responce type</th>
+                <th>Account type</th>
                 <th>Phone Number</th>
-                <th>Otp issued</th>
-                <th>Date & time</th>d>
+                <th>Username</th>
+                <th>Date & time</th>
             </tr>
         </tfoot>
     </table>
