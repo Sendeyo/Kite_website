@@ -188,8 +188,42 @@ def WalletToBank():
     
     print("-------------------")
 
+######################################################################
+######################################################################
+######################################################################
 
 
+kitelogsip = "http://18.189.117.13:2027"
+###############################################################################
+######################### Admin functions######################################
+
+def RegisterMerchant(data):
+    registerMerchantUrl = "{}/accounts/merchant/register".format("http://18.189.117.13:2027")
+    try:
+        response = requests.post(registerMerchantUrl, json = data)
+        return response
+    except Exception as e:
+        pass
+
+
+def ShowBalance():
+    showBalanceUrl = "http://18.189.117.13:8008/balance"
+    try:
+        responce = requests.post(showBalanceUrl)
+        return responce
+    except expression as identifier:
+        pass
+
+res = ShowBalance()
+print(res)
+print(res.status_code)
+print(res.text)
+
+
+# res = RegisterMerchant("username", "companyName", "001", "254715232942")
+# print(res)
+# print(res.status_code)
+# print(res.text)
 
 
 

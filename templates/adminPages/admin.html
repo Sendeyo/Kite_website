@@ -1,6 +1,124 @@
-{% extends "includes/fullstructure.html" %}
-{% block body %}
-<body id="page-top">
-    <h1>Home page</h1>
-</body>
-{% endblock %}
+{% extends 'includes/fullstructure.html' %}
+{% block Content %}
+
+<link rel="stylesheet" href="/static/mine/icons.css">
+
+<ol class="breadcrumb">
+    <i class="fas fa-fw fa-tools mr-3"></i>
+  <li class="breadcrumb-item">
+    <a href="/dashboard">Administrator</a>
+  </li>
+  <li class="breadcrumb-item active">Merchant management</li>
+</ol>
+
+{% if error %}
+            <div class="alert alert-danger alert-dismissible fade show">
+              <strong>Warning! &nbsp;</strong> {{ error }}
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+            </div>
+            <br>
+            {% endif %}
+            {% if message %}
+            <div class="alert alert-success alert-dismissible fade show">
+              <strong>Note! &nbsp;</strong> {{ message }}
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+            </div>
+            <br>
+            {% endif %}
+
+<div class="container_fluid">
+    <div class="row mx-auto">
+        <div class="card col-md-3 m-3">
+            <div class="card-body icons mx-auto">
+                <i class="fas fa-fw fa-user-cog"></i>                
+            </div>  
+            <a href="" class="text-white card-footer bg-info mx-auto mb-1 btn" data-toggle="modal" data-target="#createMerchant">
+                <span class="h3">Create Merchant</span>
+            </a>     
+        </div>
+
+        <div class="card col-md-3 m-3">
+            <div class="card-body icons mx-auto">
+                <i class="fas fa-fw fa-users-cog"></i>                
+            </div>  
+            <a href="/Dashboard/Merchants" class="text-white card-footer bg-info mx-auto mb-1 btn">
+                <span class="h3">Manage Merchants</span>
+            </a>     
+        </div>
+
+        <div class="card col-md-3 m-3">
+            <div class="card-body icons mx-auto">
+                <i class="fas fa-fw fa-th-list"></i>                
+            </div>  
+            <a href="" class="text-white card-footer bg-info mx-auto mb-1 btn">
+                <span class="h3">Merchants Logs</span>
+            </a>     
+        </div>
+
+
+    </div>
+</div>
+
+<ol class="breadcrumb">
+    <i class="fas fa-fw fa-tools mr-3"></i>
+  <li class="breadcrumb-item">
+    <a href="/dashboard">Administrator</a>
+  </li>
+  <li class="breadcrumb-item active">Merchant managemebt</li>
+</ol>
+
+<!-- ################## pop ups#################### -->
+
+  <!-- Create merchant Model -->
+  <div class="modal fade" id="createMerchant">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Create Merchent</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+
+            <div class="container-fluid">
+                <form action="" method="POST" class="form-group" name="payment">
+                    <span>Co-operate Code</span>
+                    <input type="text" name="code" required id="" value="" class="form-control">
+                    <br>
+                    <span>Company Name</span>
+                    <input type="text" name="companyName" required id="" value="" class="form-control">
+                    <br>
+                    <span>Username</span>
+                    <input type="text" name="username" id="" required value="" class="form-control">
+                    <br>
+                    <span>Phone Number</span>
+                    <input type="number" name="phoneNo" value="" required class="form-control">
+                    <br>
+                    <input type="" name="formName" value="createMerchant" id="" hidden>
+                    <input type="submit" value="Create Merchent" name="mpesa" class="form-control btn btn-success">
+                </form>
+
+            </div>
+          
+
+
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <!-- end Create merchant model -->
+
+
+{% endblock Content %}
+
+

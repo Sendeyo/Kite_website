@@ -9,6 +9,15 @@
       </a>
     </li>
 
+    <li class="nav-item {% if admin %}
+      active    
+    {% endif %}">
+      <a class="nav-link" href="/Dashboard/Admin">
+        <i class="fas fa-fw fa-tools"></i>
+        <span>Administrator</span>
+      </a>
+    </li>
+
     <li class="nav-item dropdown {% if kitebird %}
     active
     {% endif %}">
@@ -45,7 +54,7 @@
   {% endif %}">
       <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <i class="fas fa-fw fa-table"></i>
-        <span>Marmalade Tables</span>
+        <span>Marmalade Logs</span>
       </a>
       <div class="dropdown-menu" aria-labelledby="pagesDropdown">
         <h4 class="dropdown-header">All Logs:</h4>

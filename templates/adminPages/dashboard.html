@@ -1,5 +1,28 @@
 {% extends 'includes/fullstructure.html' %}
 {% block Content %}
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">
+    <a href="/dashboard">Administrator</a>
+  </li>
+  <li class="breadcrumb-item active">Overview</li>
+</ol>
+
+
+<div class="container-fluid">
+  <div class="row">
+   <button class="btn btn-info">Show coperative balance</button>
+
+   {% if balance %}
+   
+   {% else %}
+   
+   {% endif %}
+   </div>
+   <br>
+</div>
+
+
 <ol class="breadcrumb">
     <li class="breadcrumb-item">
       <a href="/dashboard">Marmalade</a>

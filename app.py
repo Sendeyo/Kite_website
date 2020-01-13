@@ -410,7 +410,7 @@ def ChooseMethod():
 
 @app.route("/adminLogin", methods = ["GET", "POST"])
 def AdminLogin():
-    # session["administrator"] = "email"
+    
     if request.method == "POST":
         email = request.form["email"]
         password = request.form["password"]
@@ -427,6 +427,7 @@ def AdminLogin():
 
 @app.route("/Dashboard/")
 def Dashboard():
+    session["administrator"] = "email"
     if "administrator" in session:
         # tableData = ["Logs Table"]
         # tableData.append(data.DashData()) ##logs
@@ -435,8 +436,59 @@ def Dashboard():
     else:
         return redirect("/adminLogin")
 
-################################## bird logs ########################
-################################## bird logs ########################
+################################## Admin functions ########################
+################################## Admin functions ########################
+
+@app.route("/Dashboard/Admin", methods = ["GET", "POST"])
+def Administrator():
+    if "administrator" in session:
+        if request.method == "POST":
+            if request.form["formName"] == "createMerchant":
+                cooperateCode = request.form["code"]
+                companyName = request.form["companyName"]
+                username = request.form["username"]
+                phoneNo = request.form["phoneNo"]
+                data = {
+                "username": username,
+                "companyName": companyName,
+                "cooprateCode": cooperateCode,
+                "phoneNo": phoneNo
+                }
+                try:
+                    responce = apis.RegisterMerchant(data)
+
+                    if responce.status_code == 200:
+                        message = "Status {}: {}".format(responce.status_code, responce.json()["body"])
+                        return render_template("/adminPages/admin.html", admin = "active", message = message)
+                    else:
+                        error = "error {}: {}".format(responce.status_code, responce.json()["body"])
+                        return render_template("/adminPages/admin.html", admin = "active", error = error)
+                except Exception as e:
+                    pass
+
+
+        return render_template("/adminPages/admin.html", admin = "active")
+    else:
+        return redirect("/adminLogin")
+        
+        
+@app.route("/Dashboard/Merchants")
+def Merchants():
+    if "administrator" in session:
+        return render_template("/adminPages/config/merchants.html", admin = "active")        
+    else:
+        return redirect("/adminLogin")
+
+
+
+
+
+
+
+################################## Admin functions ########################
+################################## Admin functions ########################
+
+
 ################################## bird logs ########################
 ################################## bird logs ########################
 @app.route("/kitebird/otps")

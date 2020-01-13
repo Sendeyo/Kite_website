@@ -2,3 +2,17 @@
     color: blue;
     font-size: 50px;
 }
+
+.icons .fa-user-cog{
+    color: green;
+}
+.icons .fa-th-list{
+    color: rgb(6, 240, 189);
+}
+.icon .fa-pen{
+    color: blue;
+}
+.icon .fa-lock{
+    color: rgb(240, 14, 6);
+}
+
