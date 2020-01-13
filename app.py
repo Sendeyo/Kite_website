@@ -475,7 +475,15 @@ def Administrator():
 @app.route("/Dashboard/Merchants")
 def Merchants():
     if "administrator" in session:
-        return render_template("/adminPages/config/merchants.html", admin = "active")        
+        logs = apis.GetMerchant()
+        if logs.status_code == 200:
+            print("showing merchant")
+            return render_template("/adminPages/config/merchants.html", admin = "active", logs = logs.json()) 
+        else:
+            print("failed   hhhhh")
+            error = apis.GetMerchant()
+            return "an error occured"
+
     else:
         return redirect("/adminLogin")
 

@@ -23,24 +23,67 @@
     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
       <thead>
           <tr>
-            <th>Co-operate Code</th>
+            <th>Paybill Code</th>
             <th>Company name</th>
             <th>Username</th>
             <th>Phone No</th>
+            <th>Wallet</th>
             <th>Edit</th>
-            <th>Deactivate / Activate</th>
+            <th>Details</th>
           </tr>
       </thead>
       <tbody>
           {% if logs %}
 
           {% for log in logs["body"] %}
-              <tr>
-                 <td>{{ log["_id"] }}</td>
-                 <td>{{ log["phoneNo"] }}</td>
-                 <td>{{ log["otp"] }}</td>
-                 <td>{{ admin_date_format(log["datetime"]) }}</td>
-              </tr>
+            <tr>
+              <td> {{ log["shortCode"] }}</td>
+              <td>{{ log["companyName"] }}</td>
+              <td>{{ log["username"] }}</td>
+              <td>+{{ log["phoneNo"] }}</td>
+              <td>{{ log["accountWalletNo"] }}</td>
+              <td>
+                <a href="" class="form-control btn" data-toggle="modal" data-target="#editModel"><i class="fas fa-fw fa-pen"></i> &nbsp; Edit</a>
+              </td>
+
+              <td>
+                <a href="" class="form-control btn" data-toggle="modal" data-target="#moreModel"><i class="fas fa-fw fa-list"></i> &nbsp; More</a>
+              </td>
+            </tr>
+              <!-- More details Model -->
+  <div class="modal fade" id="moreModel">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">{{ log["username"] }} Detals</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+            <div class="container-fluid">
+
+              
+              <pre id="json">
+                {{log}}
+              </pre>
+                
+
+            </div>
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <!-- end more details model -->
           {% endfor %}
           {% else %}
 
@@ -55,6 +98,9 @@
             <td>
               <a href="" class="form-control btn"><i class="fas fa-fw fa-lock"></i> &nbsp; Locked</a>
             </td>
+            <td>
+              <a href="" class="form-control btn"> More</a>
+            </td>
           </tr>
           
           {% endif %}
@@ -66,8 +112,9 @@
             <th>Company name</th>
             <th>Username</th>
             <th>Phone No</th>
+            <th>Wallet</th>
             <th>Edit</th>
-            <th>Deactivate / Activate</th>
+            <th>Details</th>
           </tr>
       </tfoot>
   </table>
@@ -75,7 +122,48 @@
 
 <!-- ################## pop ups#################### -->
 
-  <!-- Create merchant Model -->
+  <!-- Edit merchant Model -->
+  <div class="modal fade" id="editModel">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Edit Merchant details</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+
+            <div class="container-fluid">
+                <form action="" method="POST" class="form-group" name="payment">
+
+                    <span>Username</span>
+                    <input type="text" name="username" id="" value="" class="form-control">
+                    <br>
+                    <input type="" name="paymentMethod" value="mpesa" id="" hidden>
+                    <input type="submit" value="Update Merchent" name="mpesa" class="form-control btn btn-success">
+                </form>
+
+            </div>
+          
+
+
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <!-- end edit merchant model -->
+
+    <!-- Edit merchant Model -->
   <div class="modal fade" id="editModel">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
@@ -122,7 +210,7 @@
     </div>
   </div>
 
-  <!-- end Create merchant model -->
+  <!-- end edit merchant model -->
 
 
 {% endblock Content %}
