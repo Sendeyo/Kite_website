@@ -427,7 +427,7 @@ def AdminLogin():
 
 @app.route("/Dashboard/")
 def Dashboard():
-    session["administrator"] = "email"
+    # session["administrator"] = "email"
     if "administrator" in session:
         # tableData = ["Logs Table"]
         # tableData.append(data.DashData()) ##logs
