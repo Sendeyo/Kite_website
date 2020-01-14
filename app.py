@@ -193,8 +193,104 @@ def Tiles(tile):
         return redirect("/Top Up")
     elif tile == "Admin Panel":
         return redirect("/Dashboard")
+    elif tile == "Billers":
+        return redirect("/Billers")
     else:
         return "{}".format(tile)
+
+
+
+billers = [
+    {"serviceId":"1", "name": "DSTV", "Description":"Subscription on", "image": "/static/images/DStvlogo.png", "color": "bg-primary"},
+    {"serviceId":"2", "name": "GOTV", "Description":"Subscription on", "image": "/static/images/GOtv.jpg", "color": "mainColor"},
+    {"serviceId":"441", "name": "Startimes", "Description":"Subscription on", "image": "/static/images/startimes.jpg", "color": "subColor"},
+    {"serviceId":"717", "name": "KWESE", "Description":"Subscription on", "image": "/static/images/Kwese.jpg", "color": "bg-info"},
+    {"serviceId":"43", "name": "ZUKU", "Description":"Subscription on", "image": "/static/images/Zuku-logo.jpg", "color": "bg-info"},
+    {"serviceId":"9", "name": "Mpesa", "Description":"Airtme top up on", "image": "/static/images/mpesa.png", "color": "bg-success"},
+    {"serviceId":"54", "name": "Airtel", "Description":"Airtme top up on", "image": "/static/images/airtel.png", "color": "bg-danger"},
+    {"serviceId":"55", "name": "TelKom", "Description":"Airtme top up on", "image": "/static/images/telkom.jpg", "color": "mainColor"},
+    {"serviceId":"378", "name": "KPLC-Postpay", "Description":"Electricity", "image": "/static/images/kplc.jpg", "color": "bg-primary"},
+    {"serviceId":"337", "name": "KPLC-Prepaid", "Description":"Electricity", "image": "/static/images/kplc.jpg", "color": "bg-primary"},
+]
+@app.route("/Billers", methods = ["POST", "GET"])
+def Billers():
+    if "userdata" in session:
+        if request.method == "POST":
+            if request.form["purpose"] == "validate":
+                account = request.form["account"]
+                serviceID = request.form["serviceID"]
+                data = {
+                        "serviceID": serviceID,
+                        "accountNumber": "{}".format(account)
+                        }
+                try:
+                    responce = apis.CellulantValidation(data)
+                    if isinstance(responce.status_code, int):
+                        print(responce)
+                        print(responce.text)
+                        message = responce.json()["body"]
+                        if responce.status_code == 200:
+                            return render_template("/kite/billers.html", userdata = session["userdata"], billers = billers, message = message)
+                        return render_template("/kite/billers.html", userdata = session["userdata"], billers = billers, warning = message)
+                    else:
+                        message = responce
+                        return render_template("/kite/billers.html", userdata = session["userdata"], billers = billers, error = message)
+                except Exception as e:
+                    error = e
+                    return render_template("/kite/billers.html", userdata = session["userdata"], billers = billers, error = error)
+            elif request.form["purpose"] == "query":
+                account = request.form["account"]
+                serviceID = request.form["serviceID"]
+                data = {
+                        "serviceID": serviceID,
+                        "accountNumber": "{}".format(account)
+                        }
+                try:
+                    responce = apis.CellulantQuerying(data)
+                    if isinstance(responce.status_code, int):
+                        print(responce)
+                        print(responce.text)
+                        message = responce.json()["body"]
+                        if responce.status_code == 200:
+                            return render_template("/kite/billers.html", userdata = session["userdata"], billers = billers, message = message)
+                        return render_template("/kite/billers.html", userdata = session["userdata"], billers = billers, warning = message)
+                    else:
+                        message = responce
+                        return render_template("/kite/billers.html", userdata = session["userdata"], billers = billers, error = message)
+                except Exception as e:
+                    error = e
+                    return render_template("/kite/billers.html", userdata = session["userdata"], billers = billers, error = error)
+            elif request.form["purpose"] == "paybill":
+                account = request.form["account"]
+                serviceID = request.form["serviceID"]
+                amount = request.form["amount"]
+                data = {
+                        "serviceID": serviceID,
+                        "accountNumber": "{}".format(account),
+                        "amount": "{}".format(amount)
+                        }
+                try:
+                    responce = apis.CellulantPayment(data)
+                    if isinstance(responce.status_code, int):
+                        print(responce)
+                        print(responce.text)
+                        message = responce.json()["body"]
+                        if responce.status_code == 200:
+                            return render_template("/kite/billers.html", userdata = session["userdata"], billers = billers, message = message)
+                        return render_template("/kite/billers.html", userdata = session["userdata"], billers = billers, warning = message)
+                    else:
+                        message = responce
+                        return render_template("/kite/billers.html", userdata = session["userdata"], billers = billers, error = message)
+                except Exception as e:
+                    error = e
+                    return render_template("/kite/billers.html", userdata = session["userdata"], billers = billers, error = error)
+        return render_template("/kite/billers.html", userdata = session["userdata"], billers = billers)
+    return redirect("/")
+
+
+
+
+
 
 
 @app.route("/profile")
@@ -396,7 +492,6 @@ def ChooseMethod():
 
     else:
         return redirect("/")
-
 # #############################################################################################
 # ##########/#\##########|#\#####/#|#####|#####################################################
 # #########/###\#########|##\###/##|#####|#####################################################
@@ -410,7 +505,6 @@ def ChooseMethod():
 
 @app.route("/adminLogin", methods = ["GET", "POST"])
 def AdminLogin():
-    
     if request.method == "POST":
         email = request.form["email"]
         password = request.form["password"]

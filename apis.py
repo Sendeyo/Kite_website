@@ -245,7 +245,74 @@ def ShowBalance(): ### show co-operative balance as richard requested
 ###############################################################################
 ###############################################################################
 ###############################################################################
+
+
 ###############################################################################
+#############################Cellulant apis####################################
+cellulantIp = "http://18.207.173.18:8888"
+def CellulantValidation(data):
+    print("validating")
+    validationIp = "{}{}".format(cellulantIp, "/cellulant/validation")
+    try:
+        responce = requests.post(validationIp, json = data)
+        return responce
+    except Exception as e:
+        return e
+
+# data = {
+#   "serviceID": 71,
+#   "accountNumber": "25400001404"
+# }
+# res = CellulantValidation(data)
+# print(res)
+# print(res.text)
+# print(res)
+
+
+
+
+def CellulantQuerying(data):
+    print("querying")
+    queryIp = "{}{}".format(cellulantIp, "/cellulant/queryBill")
+    try:
+        responce = requests.post(queryIp, json = data)
+        return responce
+    except Exception as e:
+        print(e)
+        return e
+
+# data = {
+#   "serviceID": 717,
+#   "accountNumber": "25400001404"
+# }
+# res = CellulantQuerying(data)
+# print(res)
+# print(res.text)
+
+
+
+def CellulantPayment(data):
+    print("payment")
+    paymentIp = "{}{}".format(cellulantIp, "/cellulant/payment")
+    try:
+        responce = requests.post(paymentIp, json = data)
+        return responce
+    except Exception as e:
+        print(e)
+        return e
+
+# data = {
+# "serviceID": 54,
+#   "accountNumber": "254755285990",
+#   "amount": "5"
+# }
+# res = CellulantPayment(data)
+# print(res)
+# print(res.text)
+
+
+
+#############################Cellulant apis####################################
 ###############################################################################
 
 

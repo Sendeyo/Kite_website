@@ -1,0 +1,188 @@
+{% extends "structureadmin.html" %}
+{% include "includes/_defaultNav.html" %}
+{% block body %}
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="/static/build/css/intlTelInput.css">
+  <link rel="stylesheet" href="/static/build/css/demo.css">
+</head>
+<body class="bg-dark">
+        <div class="container">
+          <div class="card mx-auto mt-6">
+            <div class="card-header h3 subColor text-white"><p align="center">PAY BILLS</p></div>
+            <div class="card-body lightColor">
+
+                    {% if message %}
+                    <div class="alert alert-success alert-dismissible fade show">
+                      
+                      <div class="row">
+                        <div class="col-md-4 mx-auto">
+                          <strong>Success! {{ message["statusDescription"] }}</strong>
+                          <br>
+                          Company : {{ message["serviceCode"] }}
+                          <br>
+                          Account : {{ message["accountNumber"] }}
+                          <br>
+                          Name : {{ message["customerName"] }}
+                        </div>
+
+                      </div>
+                      <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    </div>
+                    <br>
+                    {% endif %}
+                    {% if warning %}
+
+                    <div class="alert alert-warning alert-dismissible fade show">
+                      <strong>Note!</strong>
+                      <p>
+                        <span h4> {{ warning["statusDescription"] }} </span>
+                      </p>
+
+
+                      <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    </div>
+                    <br>
+                    {% endif %}
+                    {% if error %}
+
+                    <div class="alert alert-danger alert-dismissible fade show">
+                      <strong>Note!</strong> {{ error }}
+                      <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    </div>
+                    <br>
+                    {% endif %}
+                  
+<!-- cards -->
+<div class="row mx-auto">
+
+    {% if billers %}
+    {% for biller in billers %}
+
+    <div class="col-xl-4 col-md-4 col-sm-6 tile mt-3">
+        <div class="card text-white {{ biller['color'] }} o-hidden h-100">
+          <div class="card-body">
+            <div class="card-body-icon">
+              <!-- <i class="fas fa-fw fa-comments"></i> -->
+              <img src="{{ biller['image'] }}" class="mx-auto float-right" alt="Profile pic" width="50%"> 
+            </div>
+            <div class="mr-5 h3">{{ biller["name"] }}</div>
+          </div>
+          <a class="card-footer text-white clearfix small z-1" href="#" data-toggle="modal" data-target="#{{ biller['name'] }}">
+            <span class="float-left h4">{{ biller["Description"] }} <b>{{ biller["name"] }}</b></span>
+            <span class="float-right">
+              <i class="fas fa-angle-right"></i>
+            </span>
+          </a>
+        </div>
+      </div>
+
+      <!-- dstv -->
+      {% include 'kite/billers/dstv.html' %}
+      {% include 'kite/billers/gotv.html' %}
+      {% include 'kite/billers/startimes.html' %}
+      {% include 'kite/billers/kwese.html' %}
+      {% include 'kite/billers/zuku.html' %}
+
+      {% include 'kite/billers/mpesa.html' %}
+      {% include 'kite/billers/airtel.html' %}
+      {% include 'kite/billers/telkom.html' %}
+      {% include 'kite/billers/kplcPre.html' %}
+      {% include 'kite/billers/kplcPost.html' %}
+      
+    
+
+
+      
+
+        
+    {% endfor %}
+    {% endif %}
+    
+      <!-- end Airtel money -->
+       <!-- Card money -->
+       <!-- <div class="col-xl-4 col-md-4 col-sm-6 tile mt-2">
+        <div class="card text-white bg-primary o-hidden h-100">
+          <div class="card-body">
+            <div class="card-body-icon">
+              <i class="fas fa-fw fa-comments"></i>
+              <img src="/static/images/cards.png" class="mx-auto float-right" alt="Profile pic" width="50%"> 
+            </div>
+            <div class="mr-5 h3">Bank Cards</div>
+          </div>
+          <a class="card-footer text-white clearfix small z-1" href="#" data-toggle="modal" data-target="#cardModal">
+            <span class="float-left">Use Bank <b>Card</b></span>
+            <span class="float-right">
+              <i class="fas fa-angle-right"></i>
+            </span>
+          </a>
+        </div>
+      </div> -->
+
+</div>
+
+<!-- end cards -->
+
+<!--  -->
+
+
+
+
+  <!-- Mpesa Modal -->
+  <div class="modal fade" id="mpesaModal">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title ">Pay bills on</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+
+            <div class="container-fluid">
+                <form action="" method="POST" class="form-group" name="payment">
+                        <span>Mpesa Number</span>
+                    <input type="number" name="phoneNo" value="" required class="form-control">
+                    <br>
+                    <span>Wallet Number</span>
+                    <input type="tel" name="walletNo"  required  class="form-control" value="">
+                    <br>
+                    <span>Amount</span>
+                    <input type="text" placeholder="Enter Amount" class="form-control text-left" id="currency" name="amount" data-inputmask="'alias': 'numeric', 'groupSeparator': ',', 'autoGroup': true, 'digits': 2, 'digitsOptional': false, 'prefix': 'Ksh ', 'placeholder': '0'">
+
+                    <!-- <input type="number" name="amount" placeholder="Amount To Top Up" required class="form-control"> -->
+                    <br>
+                    <input type="" name="paymentMethod" value="mpesa" id="" hidden>
+                    <input type="submit" value="Send" name="mpesa" class="form-control btn btn-success">
+                </form>
+
+            </div>
+          
+
+
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <!-- end mpesa model -->
+
+
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,128 @@
+<!-- Dstv model start -->
+<div class="modal fade" id="{{ biller['name'] }}">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content mainColor">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title text-white">My {{ biller['name'] }} Subscription</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <!-- Modal body -->
+      <div class="modal-body">
+          <div class="container-fluid">
+            <a href="" data-toggle="modal" data-target="#{{ biller['name'] }}-paybill" class="form-control btn bg-primary "><span class="h4">Bill Payment</span></a>
+            <br><br>
+          </div>
+      </div>
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div> 
+    </div>
+  </div>
+</div>
+
+<!-- Dstv model stop -->
+
+
+<!-- Dstv validate start -->
+<div class="modal fade" id="{{ biller['name'] }}-validate">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content subColor">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title text-white">My {{ biller["name"] }} Subscription</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <!-- Modal body -->
+      <div class="modal-body">
+          <div class="container-fluid">
+              <form action="" method="POST" class="form-group">
+                  <input type="number" required name="account" value="" placeholder="Account Number" class="form-control">
+                  <input type="text" name="purpose" value="validate" hidden>
+                  <input type="number" name="serviceID" value='{{ biller["serviceId"] }}' hidden>
+                  <br>
+                  <br>
+                  <input type="submit" class="btn-success form-control" name="send" value="Check">
+
+              </form>
+          </div>
+      </div>
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div> 
+    </div>
+  </div>
+</div>
+
+<!-- Dstv validate stop -->
+   <!-- Dstv query start -->
+<div class="modal fade" id="{{ biller['name'] }}-query">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content bg-success">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title text-white">My {{ biller["name"] }} Bill</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <!-- Modal body -->
+      <div class="modal-body">
+          <div class="container-fluid">
+              <form action="" method="POST" class="form-group">
+                  <input type="number" required name="account" value="" placeholder="Account Number" class="form-control">
+                  <input type="text" name="purpose" value="query" hidden>
+                  <input type="number" name="serviceID" value='{{ biller["serviceId"] }}' hidden>
+                  <br>
+                  <br>
+                  <input type="submit" class="btn-primary form-control" name="send" value="Check Bill">
+
+              </form>
+          </div>
+      </div>
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div> 
+    </div>
+  </div>
+</div>
+
+<!-- Dstv query stop -->
+  <!-- Dstv pay start -->
+<div class="modal fade" id="{{ biller['name'] }}-paybill">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content bg-primary">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title ">My {{ biller["name"] }} Subscription Payment</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <!-- Modal body -->
+      <div class="modal-body">
+          <div class="container-fluid">
+
+              <form action="" method="POST" class="form-group">
+                  <input type="number" required name="account" value="" placeholder="Account Number" class="form-control">
+                  <br>
+                  <br>
+                  <input type="number" required name="amount" value="" placeholder="Amount" class="form-control">
+                  <input type="text" name="purpose" value="paybill" hidden>
+                  <input type="number" name="serviceID" value='{{ biller["serviceId"] }}' hidden>
+                  <br>
+                  <br>
+                  <input type="submit" class="btn-success form-control" name="send" value="Pay Bill">
+
+              </form>
+
+          </div>
+      </div>
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div> 
+    </div>
+  </div>
+</div>
+
+<!-- Dstv pay stop -->
