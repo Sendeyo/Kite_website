@@ -211,6 +211,7 @@ billers = [
     {"serviceId":"55", "name": "TelKom", "Description":"Airtme top up on", "image": "/static/images/telkom.jpg", "color": "mainColor"},
     {"serviceId":"378", "name": "KPLC-Postpay", "Description":"Electricity", "image": "/static/images/kplc.jpg", "color": "bg-primary"},
     {"serviceId":"337", "name": "KPLC-Prepaid", "Description":"Electricity", "image": "/static/images/kplc.jpg", "color": "bg-primary"},
+    {"serviceId":"337", "name": "Nairobi-Water", "Description":"", "image": "/static/images/nairobi.png", "color": "bg-info"},
 ]
 @app.route("/Billers", methods = ["POST", "GET"])
 def Billers():

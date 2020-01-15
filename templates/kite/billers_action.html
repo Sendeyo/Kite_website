@@ -10,12 +10,24 @@
         <!-- Modal body -->
         <div class="modal-body">
             <div class="container-fluid">
-              <a href="" data-toggle="modal" data-target="#{{ biller['name'] }}-validate" class="form-control btn btn-info "><span class="h4">Validate Account</span></a>
+
+
+                {% if biller['name'] == "Mpesa" or biller['name'] == "Airtel" or biller['name'] == "TelKom" %}
+                
+                <a href="" data-toggle="modal" data-target="#{{ biller['name'] }}-paybill" class="form-control btn bg-primary "><span class="h4">Buy Airtime</span></a>
+                <br><br>
+
+                {% else %}
+
+                <a href="" data-toggle="modal" data-target="#{{ biller['name'] }}-validate" class="form-control btn btn-info "><span class="h4">Validate Account</span></a>
               <br><br>
               <a href="" data-toggle="modal" data-target="#{{ biller['name'] }}-query" class="form-control btn btn-success "><span class="h4">Check Bill</span></a>
               <br><br>
               <a href="" data-toggle="modal" data-target="#{{ biller['name'] }}-paybill" class="form-control btn bg-primary "><span class="h4">Bill Payment</span></a>
-              <br><br>DSTV
+              <br><br>
+                
+                {% endif %}
+
             </div>
         </div>
         <!-- Modal footer -->

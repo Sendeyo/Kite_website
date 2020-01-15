@@ -260,7 +260,7 @@ def CellulantValidation(data):
         return e
 
 # data = {
-#   "serviceID": 71,
+#   "serviceID": 171,
 #   "accountNumber": "25400001404"
 # }
 # res = CellulantValidation(data)

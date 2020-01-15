@@ -27,6 +27,10 @@
                           Account : {{ message["accountNumber"] }}
                           <br>
                           Name : {{ message["customerName"] }}
+                          <br>
+                          Amount : {{ message["currency"] }} {{ message["dueAmount"] }}
+                          <br>
+                          Due Date : {{ message["dueDate"] }}
                         </div>
 
                       </div>
@@ -37,11 +41,18 @@
                     {% if warning %}
 
                     <div class="alert alert-warning alert-dismissible fade show">
-                      <strong>Note!</strong>
-                      <p>
-                        <span h4> {{ warning["statusDescription"] }} </span>
-                      </p>
+                      <div class="row">
+                        <div class="col-md-4 mx-auto">
+                          <strong>Warning! {{ warning["statusDescription"] }}</strong>
+                          <br>
+                          Company : {{ warning["serviceID"] }}
+                          <br>
+                          Account : {{ warning["accountNumber"] }}
+                          <br>
+                          Name : {{ warning["customerName"] }}
+                        </div>
 
+                      </div>
 
                       <button type="button" class="close" data-dismiss="alert">&times;</button>
                     </div>
@@ -81,24 +92,9 @@
       </div>
 
       <!-- dstv -->
-      {% include 'kite/billers/dstv.html' %}
-      {% include 'kite/billers/gotv.html' %}
-      {% include 'kite/billers/startimes.html' %}
-      {% include 'kite/billers/kwese.html' %}
-      {% include 'kite/billers/zuku.html' %}
-
-      {% include 'kite/billers/mpesa.html' %}
-      {% include 'kite/billers/airtel.html' %}
-      {% include 'kite/billers/telkom.html' %}
-      {% include 'kite/billers/kplcPre.html' %}
-      {% include 'kite/billers/kplcPost.html' %}
-      
-    
+      {% include 'kite/billers_action.html' %}
 
 
-      
-
-        
     {% endfor %}
     {% endif %}
     
