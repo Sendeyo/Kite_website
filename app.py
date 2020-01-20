@@ -84,6 +84,9 @@ def Login():
             password = request.form["password"]
             try:
                 responce = apis.GetUserData(phoneNumber, password)
+                print("##################")
+                print(responce.status_code)
+                print("##################")
                 if responce.status_code == 200:
                     session["phoneNumber"] = phoneNumber
                     session["password"] = password
@@ -527,7 +530,8 @@ def Dashboard():
         # tableData = ["Logs Table"]
         # tableData.append(data.DashData()) ##logs
         reqs = Numbers(data.DashData())
-        return render_template("/adminPages/dashboard.html", dashboard="active", cardsData=reqs)
+        balance = apis.GetCoopBalance()
+        return render_template("/adminPages/dashboard.html", dashboard="active", cardsData=reqs, balance= balance)
     else:
         return redirect("/adminLogin")
 

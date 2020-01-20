@@ -11,13 +11,7 @@
 
 <div class="container-fluid">
   <div class="row">
-   <button class="btn btn-info">Show coperative balance</button>
-
-   {% if balance %}
-   
-   {% else %}
-   
-   {% endif %}
+    <a href="" class="btn btn-primary" data-toggle="modal" data-target="#showBalance">Show Co-operative balance</a>
    </div>
    <br>
 </div>
@@ -44,6 +38,63 @@
 
 
 
+<!-- Mpesa Modal -->
+<div class="modal fade" id="showBalance">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+    
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title ">Cooperative balance</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      
+      <!-- Modal body -->
+      <div class="modal-body">
+
+          <div class="container-fluid">
+
+            {% if balance %}
+            
+            <div>
+              <table class="table table-striped">
+                  {% if balance["fault"] %}
+
+                  <tr>
+                    <span class="h4">
+                      You have exeeded your quota please wait for a while before trying again
+                    </span>
+                  </tr>
+                  {% else %}
+                  <tr><td>Cleared balance</td><td>{{ balance["ClearedBalance"] }}</td></tr>
+                  <tr><td>Booked balance</td><td>{{ balance["BookedBalance"] }}</td></tr>
+                  <tr><td>Available balance</td><td>{{ balance["AvailableBalance"] }}</td></tr>
+                  {% endif %}
+              </table>
+            </div>
+            
+            {% else %}
+
+            <span class="h3">
+              Balance should show here
+            </span>
+            
+            {% endif %}
+
+          </div>
+      
+      </div>
+      
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+<!-- end mpesa model -->
 
 {% endblock Content %}
 

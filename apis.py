@@ -68,7 +68,7 @@ def GetUserToken(phoneNo, password):
         responce = {"status": "6"}
     return responce
 
-# responce = GetUserToken("254715232942", "1234")
+# responce = GetUserToken("254715232942", "12341234")
 # print(responce)
 # print(responce.json()["body"]["token"])
 # print(responce.text)
@@ -81,6 +81,7 @@ def GetUserToken(phoneNo, password):
 #     else:
 #         print("")
 #     return token
+
 
 def GetUserData(phoneNo, password):
     userInfoUrl = "{}/account".format(ip)
@@ -542,3 +543,19 @@ def DepositRequest(number, wallet, ammount):
         pass
     print("stop")
 
+
+# {"fault":{"code":900802,"message":"Message throttled out","description":"You have exceeded your quota","nextAccessTime":"2020-Jan-20 11:00:00+0000 UTC"}}
+
+def GetCoopBalance():
+    url = "http://18.189.117.13:8008/balance"
+    try:
+        responce =  requests.get(url)
+        if responce.status_code == 200:
+            print(responce.text)
+            return responce.json()
+    except Exception as e:
+        print(e)
+        pass
+
+# res = GetCoopBalance()
+# print(res)
