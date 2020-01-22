@@ -71,7 +71,9 @@ def Logout():
 def UpdateUserData():
     response = apis.GetUserData(session["phoneNumber"], session["password"])
     userdata = response.json()
-    session["userdata"] = userdata["body"]
+    userdata = userdata["body"]
+    userdata["admins"] = ["254715232942","254797162465","254792383998","254722774403"]
+    session["userdata"] = userdata
 
 @app.route("/", methods=["GET", "POST"])
 def Login():
@@ -84,14 +86,13 @@ def Login():
             password = request.form["password"]
             try:
                 responce = apis.GetUserData(phoneNumber, password)
-                print("##################")
-                print(responce.status_code)
-                print("##################")
                 if responce.status_code == 200:
                     session["phoneNumber"] = phoneNumber
                     session["password"] = password
                     userdata = responce.json()
-                    session["userdata"] = userdata["body"]
+                    userdata = userdata["body"]
+                    userdata["admins"] = ["254715232942","254797162465","254792383998","254722774403"]
+                    session["userdata"] = userdata
                     print(session["userdata"])
                     time.sleep(1)
                     return redirect("/")
@@ -209,12 +210,14 @@ billers = [
     {"serviceId":"441", "name": "Startimes", "Description":"Subscription on", "image": "/static/images/startimes.jpg", "color": "subColor"},
     {"serviceId":"717", "name": "KWESE", "Description":"Subscription on", "image": "/static/images/Kwese.jpg", "color": "bg-info"},
     {"serviceId":"43", "name": "ZUKU", "Description":"Subscription on", "image": "/static/images/Zuku-logo.jpg", "color": "bg-info"},
-    {"serviceId":"9", "name": "Mpesa", "Description":"Airtme top up on", "image": "/static/images/mpesa.png", "color": "bg-success"},
+    {"serviceId":"9", "name": "Safaricom", "Description":"Airtme top up on", "image": "/static/images/mpesa.png", "color": "bg-success"},
     {"serviceId":"54", "name": "Airtel", "Description":"Airtme top up on", "image": "/static/images/airtel.png", "color": "bg-danger"},
     {"serviceId":"55", "name": "TelKom", "Description":"Airtme top up on", "image": "/static/images/telkom.jpg", "color": "mainColor"},
     {"serviceId":"378", "name": "KPLC-Postpay", "Description":"Electricity", "image": "/static/images/kplc.jpg", "color": "bg-primary"},
     {"serviceId":"337", "name": "KPLC-Prepaid", "Description":"Electricity", "image": "/static/images/kplc.jpg", "color": "bg-primary"},
-    {"serviceId":"337", "name": "Nairobi-Water", "Description":"", "image": "/static/images/nairobi.png", "color": "bg-info"},
+    {"serviceId":"8", "name": "Jambojet", "Description":"Ticket", "image": "/static/images/", "color": "subColor"},
+
+    {"serviceId":"000", "name": "Nairobi-Water", "Description":"", "image": "/static/images/nairobi.png", "color": "bg-info"},
 ]
 @app.route("/Billers", methods = ["POST", "GET"])
 def Billers():
@@ -525,15 +528,16 @@ def AdminLogin():
 
 @app.route("/Dashboard/")
 def Dashboard():
-    # session["administrator"] = "email"
-    if "administrator" in session:
-        # tableData = ["Logs Table"]
-        # tableData.append(data.DashData()) ##logs
-        reqs = Numbers(data.DashData())
-        balance = apis.GetCoopBalance()
-        return render_template("/adminPages/dashboard.html", dashboard="active", cardsData=reqs, balance= balance)
+    if "userdata" in session:
+        if session["userdata"]["phoneNo"] in session["userdata"]["admins"]:
+            session["administrator"] = session["userdata"]
+            reqs = Numbers(data.DashData())
+            balance = apis.GetCoopBalance()
+            return render_template("/adminPages/dashboard.html", dashboard="active", cardsData=reqs, balance= balance)
+        else:
+            print("Userdata error login")      
     else:
-        return redirect("/adminLogin")
+        return redirect("/")
 
 ################################## Admin functions ########################
 ################################## Admin functions ########################

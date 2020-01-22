@@ -6,7 +6,9 @@
   <div class="container">
     <div class="card mx-auto mt-6">
       <div class="card-header h3 subColor">
-        <p align="center">{{ userdata["username"] }}</p>
+        <p align="center">{% if userdata %}
+          {{ userdata["username"] }}        
+        {% endif %}</p>
       </div>
       <div class="card-body lightColor">
 
@@ -17,7 +19,9 @@
               <br><br>
               <p align="justify">
                 <br>
-                Wallet ID: <span>{{ userdata["wallet"][0]["walletNo"] }}</span>
+                Wallet ID: <span>{% if userdata %}
+                  {{ userdata["wallet"][0]["walletNo"] }}
+                {% endif %}</span>
                 <hr>
                 <button class="btn btn-info" data-container="body" 
                   data-toggle="popover" 

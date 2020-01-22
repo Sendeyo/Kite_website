@@ -53,6 +53,16 @@
         <div class="dropdown-menu dropdown-menu-right text-white" aria-labelledby="userDropdown">
           <!-- <a class="dropdown-item" href="#">Settings</a> -->
           <a class="dropdown-item" href="/profile"> {{ userdata["username"] }} </a>
+          <a class="dropdown-item" href="#">Activity Log</a>
+          <div class="dropdown-divider"></div>
+          {% if userdata["phoneNo"] in userdata["admins"] %}
+
+          <a class="dropdown-item" href="/Merchant">Merchant</a>
+          <a class="dropdown-item" href="/Dashboard"> Admin </a>
+          
+          {% else %}
+          
+          {% endif %}
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
         </div>

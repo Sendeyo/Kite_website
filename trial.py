@@ -1,19 +1,9 @@
-print(" ##### Api test  ####")
+print("")
+userdata = {'_id': '5e255a376a2a7bf4c1fc0280', 'accountType': 'consumer', 'cooprateCode': '001', 'phoneNo': '254715232942', 'received': 100.0, 'sent': 0.0, 'username': 'Sendeyo', 'wallet': [{'_id': '5e255a377e0f49143400bba0', 'balance': 100.0, 'walletNo': '001015232942'}]}
 
-import apis
+print(userdata)
 
-# responce = GetUserToken("254715232942", "12341234")
-# print(responce)
-# print(responce.json()["body"]["token"])
-# print(responce.text)
+userdata["admins"] = ["1234"]
 
-for x in range(0, 10):
-    responce = apis.GetUserData("254715232942", "12341234")
-    print(responce.text)
-    if responce.status_code == 200:
-        print("########### fine #########")   
-
-    else:
-        print("##### finally #########")
-        print(responce.status_code)
-        # break
+print(userdata)
+print(type(userdata))
