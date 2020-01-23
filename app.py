@@ -457,9 +457,7 @@ def ChooseMethod():
                         return render_template("/kite/chooseMethod.html", userdata=session["userdata"], error=message)
 
                 elif request.form["paymentMethod"] == "card":
-
                     print("card means")
-                    print("this is funny")
                     cardNo = request.form["cardNo"]
                     cvv = request.form["cvv"]
                     month = request.form["month"]
@@ -469,6 +467,7 @@ def ChooseMethod():
                     email = request.form["email"]
                     cardNo = cardNo.replace(" - ", "")
                     amount = amount.replace("Ksh ","")
+                    amount = amount.replace(",","")
                     if eval(amount) > 50000:
                         error = "Sorry cant send more than ksh 50000"
                         return render_template("/kite/chooseMethod.html", userdata=session["userdata"], error = error)
@@ -623,6 +622,12 @@ def WalletLogins():
     return render_template("/adminPages/kitebird/accountLogins.html" , kitebird = "active", logs = logs)
 
 
+@app.route("/kitebird/unusedOtps")
+def UnusedOtps():
+    logs = apis.BirdMpesaWallet()
+    return render_template("/adminPages/kitebird/unusedOtps.html" , kitebird = "active", logs = logs)
+
+
 
 @app.route("/kitebird/errorResponses")
 def ErrorResponses():
@@ -658,8 +663,7 @@ def CardToWallet():
 def MpesaToWallet():
     logs = apis.BirdMpesaWallet()
     return render_template("/adminPages/kitebird/walletToWallet.html" , kitebird = "active", logs = logs)
-
-
+    
 
 
 
