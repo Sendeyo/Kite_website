@@ -91,7 +91,7 @@ def Login():
                     session["password"] = password
                     userdata = responce.json()
                     userdata = userdata["body"]
-                    userdata["admins"] = ["254715232942","254797162465","254792383998","254722774403"]
+                    userdata["admins"] = ["254715232942","254797162465","254792383998","254722774403","254704187447"]
                     session["userdata"] = userdata
                     print(session["userdata"])
                     time.sleep(1)
