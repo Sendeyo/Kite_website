@@ -684,6 +684,9 @@ def Tables(name):
     elif name == "card":
         mpesaLogs = data.CardLogs()
         return render_template("/adminPages/tables/cardTable.html", tables="active", mpesaLogs=mpesaLogs)
+    elif name == "errors":
+        errorLogs = data.ErrorResponses()
+        return render_template("/adminPages/tables/errorsTable.html", tables="active", mpesaLogs=errorLogs)
     elif name == "token":
         mpesaLogs = data.TokenLogs()
         return render_template("/adminPages/tables/tokenTable.html", tables="active", mpesaLogs=mpesaLogs)

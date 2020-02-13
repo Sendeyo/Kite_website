@@ -266,8 +266,8 @@ def CellulantValidation(data):
 # }
 # res = CellulantValidation(data)
 # print(res)
-# print(res.text)
-# print(res)
+# # print(res.text)
+# # print(res)
 
 
 
@@ -288,7 +288,7 @@ def CellulantQuerying(data):
 # }
 # res = CellulantQuerying(data)
 # print(res)
-# print(res.text)
+# # print(res.text)
 
 
 
@@ -559,3 +559,5 @@ def GetCoopBalance():
 
 # res = GetCoopBalance()
 # print(res)
+
+
