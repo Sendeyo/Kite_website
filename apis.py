@@ -1,21 +1,15 @@
 import requests
 import json
+import data
 from requests.auth import HTTPBasicAuth
 ip = "http://18.189.117.13:2027"
 
 
 def GetBankNames():
-    banklist = {"KCB":1, 2:"Standard Charteed Bank KE", "Barclays Bank":3, "CBA":7, "Prime Bank":10,
-    "Cooperative Bank":11, "National Bank":12, "Citibank":16, "Habib Bank AG Zurich":17, "Middle East Bank":18,
-    "Bank of Africa":19, "Consolidated Bank":23, "Credit Bank Ltd":25, "Stanbic Bank":31, "ABC bank":35, "NIC Bank":41,
-    "Spire Bank":49, "Paramount Universal Bank":50, "Jamii Bora Bank":51, "Guaranty Bank":53, "Victorial Commercial Bank":54,
-    "Guardian Bank":55, "I&M Bank":57, "DTB":63,
-    "Sidian Bank":66, "Equity Bank":68, "Family Bank":70, "Gulf African Bank":72, "First Community Bank":74, "KWFT Bank":78
-    }
-    return banklist
+    return data.banklist
 
 
-def GetCooperateToken(cooperate = "kite test001", password = "85O17381U1"):# Get a token via a company for those without access
+def GetCooperateToken(cooperate = data.cooperate["name"], password = data.cooperate["password"]):# Get a token via a company for those without access
     tokenurl= "{}/cooperate/token".format(ip)
     responce = requests.get(tokenurl, auth=(cooperate, password))
     if responce.status_code == 200:
@@ -23,8 +17,9 @@ def GetCooperateToken(cooperate = "kite test001", password = "85O17381U1"):# Get
         return token
     else:
         return responce.status_code
-
 # print(GetCooperateToken())
+
+
 
 def VerifyNumber(number):# Verify a number by getting a token
     verityurl = "{}/accounts/verifyNumber".format(ip)
@@ -74,16 +69,9 @@ def GetUserToken(phoneNo, password):
 # print(responce.text)
 
 
-# def GetUserData(phoneNo, password):
-#     token = GetUserToken(phoneNo, password)
-#     if token.status_code == 200:
-#         print("continue")
-#     else:
-#         print("")
-#     return token
 
 
-def GetUserData(phoneNo, password):
+def GetUserData(phoneNo, password): ## Get user basic data eg email username etc
     userInfoUrl = "{}/account".format(ip)
     token = GetUserToken(phoneNo, password)
     if token.status_code == 200:
@@ -100,7 +88,7 @@ def GetUserData(phoneNo, password):
 # print(responce.text)
 
 
-def GetAllTransactions(phoneNo, password):
+def GetAllTransactions(phoneNo, password): #Get user transactions
     urlGetTransactions = "{}/transactions/walletActivities".format(ip)
     token = GetUserToken(phoneNo, password)
     if token.status_code == 200:
@@ -115,7 +103,7 @@ def GetAllTransactions(phoneNo, password):
 # print(res.text)
 
 
-def WalletToWallet(phoneNo, password, data):
+def WalletToWallet(phoneNo, password, data): ## Make a wallet to wallet transaction
     wallet2walletUrl = "{}/transactions/walletToWallet".format(ip)
     token = GetUserToken(phoneNo, password)
     if token.status_code == 200:
@@ -134,7 +122,9 @@ def WalletToWallet(phoneNo, password, data):
 # print(responce)
 # print(responce.text)
 
-def MpesaToWallet(phoneNo, password, data):
+
+
+def MpesaToWallet(phoneNo, password, data):#Mpesa to wallet transaction
     urlMpesaToWallet = "{}/transactions/mpesaToWallet".format(ip)
     token = GetUserToken(phoneNo, password)
     if token.status_code == 200:
@@ -158,7 +148,7 @@ def MpesaToWallet(phoneNo, password, data):
 # print(res.text)
 
 
-def CardToWallet(phoneNo, password, data):
+def CardToWallet(phoneNo, password, data): # card to wallet transaction
     urlCardToWallet = "{}/transactions/cardToWallet".format(ip)
     token = GetUserToken(phoneNo, password)
     if token.status_code == 200:
@@ -216,7 +206,8 @@ def GetMerchant():
     try:
         responce = requests.get(seeMerchant)
         return responce
-    except Exceptin as e:
+    except Exception as e:
+        print(e)
         pass
 
 # res = GetMerchant()
@@ -229,7 +220,8 @@ def ShowBalance(): ### show co-operative balance as richard requested
     try:
         responce = requests.get(showBalanceUrl)
         return responce
-    except expression as identifier:
+    except Exception as e:
+        print (e)
         pass
 
 # res = ShowBalance()
@@ -250,6 +242,9 @@ def ShowBalance(): ### show co-operative balance as richard requested
 
 ###############################################################################
 #############################Cellulant apis####################################
+
+##Billers apis 
+
 cellulantIp = "http://18.207.173.18:8888"
 def CellulantValidation(data):
     print("validating")
@@ -261,13 +256,13 @@ def CellulantValidation(data):
         return e
 
 # data = {
-#   "serviceID": 171,
+#   "serviceID": 717,
 #   "accountNumber": "25400001404"
 # }
 # res = CellulantValidation(data)
 # print(res)
-# # print(res.text)
-# # print(res)
+# print(res.text)
+# print(res)
 
 
 

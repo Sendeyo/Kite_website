@@ -15,22 +15,28 @@
             <div class="card-header h3 subColor text-white"><p align="center">Pay the bills</p></div>
             <div class="card-body lightColor">
 
+                    {% if validateMessage %}
+                    <div class="alert alert-success alert-dismissible fade show">
+                      <div class="row">
+                        <div class="col-xl-3 col-lg-3 col-md-4 col-md-3 mx-auto">
+                          <strong>Success! {{ validateMessage["statusDescription"] }}</strong>
+                          <br>
+                          Name : {{ validateMessage["customerName"] }}
+                          <br>
+                          Active : {{ validateMessage["active"] }}
+                          <br>
+                        </div>
+
+                      </div>
+                      <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    </div>
+                    <br>
+                    {% endif %}
                     {% if message %}
                     <div class="alert alert-success alert-dismissible fade show">
-                      
                       <div class="row">
                         <div class="col-xl-3 col-lg-3 col-md-4 col-md-3 mx-auto">
                           <strong>Success! {{ message["statusDescription"] }}</strong>
-                          <br>
-                          Company : {{ message["serviceCode"] }}
-                          <br>
-                          Account : {{ message["accountNumber"] }}
-                          <br>
-                          Name : {{ message["customerName"] }}
-                          <br>
-                          Amount : {{ message["currency"] }} {{ message["dueAmount"] }}
-                          <br>
-                          Due Date : {{ message["dueDate"] }}
                         </div>
 
                       </div>
@@ -44,12 +50,12 @@
                       <div class="row">
                         <div class="col-md-4 mx-auto">
                           <strong>Warning! {{ warning["statusDescription"] }}</strong>
-                          <br>
+                          <!-- <br>
                           Company : {{ warning["serviceID"] }}
                           <br>
                           Account : {{ warning["accountNumber"] }}
                           <br>
-                          Name : {{ warning["customerName"] }}
+                          Name : {{ warning["customerName"] }} -->
                         </div>
 
                       </div>

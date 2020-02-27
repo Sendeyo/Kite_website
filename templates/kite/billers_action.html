@@ -21,8 +21,13 @@
 
                 <a href="" data-toggle="modal" data-target="#{{ biller['name'] }}-validate" class="form-control btn btn-info "><span class="h4">Validate Account</span></a>
               <br><br>
+              {% if biller['name'] == "DSTV" or biller['name'] == "GOTV" or biller['name'] == "Startimes" or biller['name'] == "ZUKU" %}
+
               <a href="" data-toggle="modal" data-target="#{{ biller['name'] }}-query" class="form-control btn btn-success "><span class="h4">Check Bill</span></a>
               <br><br>
+              
+              {% endif %}
+              
               <a href="" data-toggle="modal" data-target="#{{ biller['name'] }}-paybill" class="form-control btn bg-primary "><span class="h4">Bill Payment</span></a>
               <br><br>
                 

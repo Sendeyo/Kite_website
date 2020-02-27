@@ -18,27 +18,30 @@ app.config.update(
     MAIL_SERVER='smtp.gmail.com',
     MAIL_PORT=465,
     MAIL_USE_SSL=True,
-    MAIL_USERNAME='anonymaxdashone@gmail.com',
-    MAIL_PASSWORD='17571757'
+    MAIL_USERNAME='xxxxxxxxxxx@gmail.com',
+    MAIL_PASSWORD='xxxxxxxx'
 )
 mail = Mail(app)
 
-######################################################
-
+######################  Functions used direct from jinja  ################################
+# determine type of record on the user transaction if send or recieve
 def determineType_function(operation):
     if operation == "send":
         return "Sent to "
     elif operation == "receive":
         return "Recieved from "
 
+# Format a number to money eg 1000 -> ksh 1,000
 def make_it_money(value):
     value = 'Ksh {:,.2f}'.format(value)
     return value
     
+#convert date from datetime to readable date
 def transaction_date_format(date):
     convertedDate = fun.Convert4User(date)
     return convertedDate
     
+#convert date from datetime to readable date but detailed
 def admin_date_format(date):
     convertedDate = fun.Convert4Admin(date)
     return convertedDate
@@ -52,29 +55,37 @@ app.jinja_env.globals.update(admin_date_format=admin_date_format)
 
 
 ######################################################
-
+# Error page route 404
 @app.errorhandler(404)
 def Page_not_found(e):
     return render_template("/404.html", error=e, message="Sorry, Page was not found")
 
-
+# Error page route 400
 @app.errorhandler(400)
 def BadRequest(e):
     return render_template("/404.html",  error=e, message="Sorry, Bad Request")
 
-
+#logout route
 @app.route("/logout")
 def Logout():
     session.clear()
     return redirect("/")
 
+
+#Add loged user data to session
 def UpdateUserData():
     response = apis.GetUserData(session["phoneNumber"], session["password"])
     userdata = response.json()
     userdata = userdata["body"]
-    userdata["admins"] = ["254715232942","254797162465","254792383998","254722774403"]
+    userdata["admins"] = data.administrators
     session["userdata"] = userdata
 
+
+
+
+################### Authentication area ##############
+#########################################################
+#Login page for the wallet
 @app.route("/", methods=["GET", "POST"])
 def Login():
     if "userdata" in session:
@@ -91,7 +102,7 @@ def Login():
                     session["password"] = password
                     userdata = responce.json()
                     userdata = userdata["body"]
-                    userdata["admins"] = ["254715232942","254797162465","254792383998","254722774403","254704187447"]
+                    userdata["admins"] = data.administrators
                     session["userdata"] = userdata
                     print(session["userdata"])
                     time.sleep(1)
@@ -107,6 +118,7 @@ def Login():
     return render_template("/kite/login.html")
 
 
+#User Registration to system
 @app.route("/register", methods=["GET", "POST"])
 def Register():
     if request.method == "POST":
@@ -136,7 +148,7 @@ def Register():
             return render_template("kite/getOtp.html", error = error)
     return render_template("kite/getOtp.html")
 
-
+### Otp Verification
 @app.route("/passwordVerification", methods=["GET", "POST"])
 def PassVerification():
     if request.method == "POST":
@@ -163,26 +175,25 @@ def PassVerification():
         return render_template("/kite/setPassword.html", message=message)
 
 
-tiles = [
-    {"name": "My Account", "icon": "fas fa-fw fa-user", "color": "bg-primary"},
-    {"name": "Top Up", "icon": "fas fa-fw fa-wallet", "color": "bg-warning"},
-    {"name": "Send to Wallet", "icon": "fas fa-fw fa-paper-plane", "color": "mainColor"},
+@app.route("/forgot-password")
+def ForgotPassword():
+    return render_template("/kite/forgot-password.html")
 
-    {"name": "Send to Bank", "icon": "fas fa-fw fa-paper-plane", "color": "subColor"},
-    
-    {"name": "Send to Mpesa", "icon": "fas fa-fw fa-paper-plane", "color": "bg-success"},
-    {"name": "Billers", "icon": "fas fa-fw fa-money-bill-wave", "color": "bg-info"},
-    
-    # {"name": "Admin Panel", "icon": "fas fa-fw fa-toolbox", "color": "bg-danger"},
-]
+
+######## End authentication
+
+
+### Home page tiles
 @app.route("/home")
 def Home():
     if "userdata" in session:
-        return render_template("kite/home.html", tiles=tiles, userdata=session["userdata"])
+        return render_template("kite/home.html", tiles=data.tiles, userdata=session["userdata"])
     else:
         return redirect("/")
 
 
+
+## Home page routes redirection
 @app.route("/home/<string:tile>", methods=["GET", "POST"])
 def Tiles(tile):
     if tile == "My Account":
@@ -203,22 +214,8 @@ def Tiles(tile):
         return "{}".format(tile)
 
 
-
-billers = [
-    {"serviceId":"1", "name": "DSTV", "Description":"Subscription on", "image": "/static/images/DStvlogo.png", "color": "bg-primary"},
-    {"serviceId":"2", "name": "GOTV", "Description":"Subscription on", "image": "/static/images/GOtv.jpg", "color": "mainColor"},
-    {"serviceId":"441", "name": "Startimes", "Description":"Subscription on", "image": "/static/images/startimes.jpg", "color": "subColor"},
-    {"serviceId":"717", "name": "KWESE", "Description":"Subscription on", "image": "/static/images/Kwese.jpg", "color": "bg-info"},
-    {"serviceId":"43", "name": "ZUKU", "Description":"Subscription on", "image": "/static/images/Zuku-logo.jpg", "color": "bg-info"},
-    {"serviceId":"9", "name": "Safaricom", "Description":"Airtme top up on", "image": "/static/images/mpesa.png", "color": "bg-success"},
-    {"serviceId":"54", "name": "Airtel", "Description":"Airtme top up on", "image": "/static/images/airtel.png", "color": "bg-danger"},
-    {"serviceId":"55", "name": "TelKom", "Description":"Airtme top up on", "image": "/static/images/telkom.jpg", "color": "mainColor"},
-    {"serviceId":"378", "name": "KPLC-Postpay", "Description":"Electricity", "image": "/static/images/kplc.jpg", "color": "bg-primary"},
-    {"serviceId":"337", "name": "KPLC-Prepaid", "Description":"Electricity", "image": "/static/images/kplc.jpg", "color": "bg-primary"},
-    {"serviceId":"8", "name": "Jambojet", "Description":"Ticket", "image": "/static/images/", "color": "subColor"},
-
-    {"serviceId":"000", "name": "Nairobi-Water", "Description":"", "image": "/static/images/nairobi.png", "color": "bg-info"},
-]
+## Billlers Routes
+billers = data.billers
 @app.route("/Billers", methods = ["POST", "GET"])
 def Billers():
     if "userdata" in session:
@@ -237,7 +234,7 @@ def Billers():
                         print(responce.text)
                         message = responce.json()["body"]
                         if responce.status_code == 200:
-                            return render_template("/kite/billers.html", userdata = session["userdata"], billers = billers, message = message)
+                            return render_template("/kite/billers.html", userdata = session["userdata"], billers = billers, validateMessage = message)
                         return render_template("/kite/billers.html", userdata = session["userdata"], billers = billers, warning = message)
                     else:
                         message = responce
@@ -299,7 +296,7 @@ def Billers():
 
 
 
-
+#User profile page
 @app.route("/profile")
 def Profile():
     if "userdata" in session:
@@ -315,10 +312,7 @@ def Profile():
     else:
         return redirect("/")
 
-@app.route("/demo")
-def Demo():
-    return render_template("/kite/del.html",  userdata=session["userdata"])
-
+# Send to bank page
 @app.route("/sendToBank", methods = ["GET","POST"])
 def SendToBank():
     if "userdata" in session:
@@ -356,6 +350,7 @@ def SendToBank():
     else:
         return redirect("/")
 
+#Send to wallet page
 @app.route("/sendToWallet", methods = ["GET", "POST"])
 def SendToWallet():
     if "userdata" in session:
@@ -389,6 +384,8 @@ def SendToWallet():
         return redirect("/")
 
 
+
+#Send to mpesa page
 @app.route("/sendToMpesa", methods = ["GET", "POST"])
 def SendToMpesa():
     if "userdata" in session:
@@ -425,6 +422,7 @@ def SendToMpesa():
         return redirect("/")
 
 
+# User top Up
 @app.route("/Top Up", methods=["GET", "POST"])
 def ChooseMethod():
     if "userdata" in session:
@@ -498,6 +496,12 @@ def ChooseMethod():
 
     else:
         return redirect("/")
+
+
+
+
+
+
 # #############################################################################################
 # ##########/#\##########|#\#####/#|#####|#####################################################
 # #########/###\#########|##\###/##|#####|#####################################################
@@ -508,7 +512,7 @@ def ChooseMethod():
 # #############################################################################################
 
 
-
+#admin Login
 @app.route("/adminLogin", methods = ["GET", "POST"])
 def AdminLogin():
     if request.method == "POST":
@@ -522,9 +526,7 @@ def AdminLogin():
     return render_template("adminPages/adminLogin.html")
 
 
-
-
-
+#Admin Dashboard page
 @app.route("/Dashboard/")
 def Dashboard():
     if "userdata" in session:
@@ -601,6 +603,14 @@ def Merchants():
 
 ################################## bird logs ########################
 ################################## bird logs ########################
+
+# all Created users
+@app.route("/kitebird/accountCreation")
+def AccountCreation():
+    logs = apis.BirdAccounts()
+    return render_template("/adminPages/kitebird/accountCreation.html" , kitebird = "active", logs = logs)
+
+#all requested otps
 @app.route("/kitebird/otps")
 def OTPS():
     if "administrator" in session:
@@ -608,57 +618,50 @@ def OTPS():
         return render_template("/adminPages/kitebird/otps.html" , kitebird = "active", logs = logs)
     return redirect("/adminLogin")
 
-    
-
-@app.route("/kitebird/accountCreation")
-def AccountCreation():
-    logs = apis.BirdAccounts()
-    return render_template("/adminPages/kitebird/accountCreation.html" , kitebird = "active", logs = logs)
-
-
+# all wallet logins
 @app.route("/kitebird/accountLogins")
 def WalletLogins():
     logs = apis.BirdLogins()
     return render_template("/adminPages/kitebird/accountLogins.html" , kitebird = "active", logs = logs)
 
-
+## should show Unused otps
 @app.route("/kitebird/unusedOtps")
 def UnusedOtps():
     logs = apis.BirdMpesaWallet()
     return render_template("/adminPages/kitebird/unusedOtps.html" , kitebird = "active", logs = logs)
 
 
-
+#Error responces
 @app.route("/kitebird/errorResponses")
 def ErrorResponses():
     logs = apis.BirdErrors()
     return render_template("/adminPages/kitebird/errorResponses.html" , kitebird = "active", logs = logs)
 
-
+#Last like 50 responces
 @app.route("/kitebird/fewResponses")
 def FewResponses():
     logs = apis.BirdResponces()
     return render_template("/adminPages/kitebird/fewResponses.html" , kitebird = "active", logs = logs)
 
-
+#Last like 50 requests
 @app.route("/kitebird/fewRequests")
 def FewRequests():
     logs = apis.BirdRequests()
     return render_template("/adminPages/kitebird/fewRequests.html" , kitebird = "active", logs = logs)
 
-
+#Wallet to wallet logs
 @app.route("/kitebird/walletToWallet")
 def WalletToWallet():
     logs = apis.BirdWalletWallet()
     return render_template("/adminPages/kitebird/walletToWallet.html" , kitebird = "active", logs = logs)
 
-
+#Card to wallet Logs
 @app.route("/kitebird/cardToWallet")
 def CardToWallet():
     logs = apis.BirdCardWallet()
     return render_template("/adminPages/kitebird/cardToWallet.html" , kitebird = "active", logs = logs)
 
-
+#Mpesa to wallet logs
 @app.route("/kitebird/mpesaToWallet")
 def MpesaToWallet():
     logs = apis.BirdMpesaWallet()
@@ -671,9 +674,9 @@ def MpesaToWallet():
 ################################## bird logs ########################
 ################################## bird logs ########################
 ################################## bird logs ########################
-################################## bird logs ########################
+################################## bird logs End ########################
 
-
+#Mermalade logs
 reses = []
 @app.route("/tables/<string:name>")
 def Tables(name):
@@ -691,7 +694,13 @@ def Tables(name):
         mpesaLogs = data.TokenLogs()
         return render_template("/adminPages/tables/tokenTable.html", tables="active", mpesaLogs=mpesaLogs)
 
+################################## mermalad logs ########################
+################################## mermalade logs End ########################
 
+
+
+################################## Unused Functions ########################
+##################################  \/ \/ \/ \/ \/  ########################
 def responceState(id):
     return "{} pppp".format(id)
 
@@ -699,6 +708,7 @@ def responceState(id):
 app.jinja_env.globals.update(responceState=responceState)
 
 
+#Charts unused though
 @app.route("/charts/")
 def Charts():
     return render_template("/adminPages/charts.html", charts="active")
@@ -746,11 +756,11 @@ def Upload(value):
     else:
         return redirect("/")
 
-
+# Send mail function
 def send_mail(email, subject, message):
     try:
         msg = Message("My Test Emails!",
-                      sender="anonymaxdashone@gmail.com",
+                      sender="xxxxxxxxxx@gmail.com",
                       recipients=[email])
         msg.body = message
         mail.send(msg)
@@ -758,7 +768,7 @@ def send_mail(email, subject, message):
     except Exception as e:
         return(str(e))
 
-
+#Send mail email caller
 @app.route("/emailSender", methods=["GET", "POST"])
 def EmailSender():
     if request.method == "POST":
@@ -770,18 +780,8 @@ def EmailSender():
     return render_template("/editor.html")
 
 
-@app.route("/fake")
-def Fake():
-    return render_template("home.html", tiles=tiles)
 
-
-@app.route("/kite")
-def Kite():
-    # rows = data.DashData()
-    rows = []
-    return render_template("/kite/home.html", rows=rows)
-
-
+#files upload to server
 @app.route("/upload/<string:action>/<string:value>")
 def UploadActions(action, value):
     if action == "delete":
@@ -837,10 +837,8 @@ def clever_function(date):
 app.jinja_env.globals.update(clever_function=clever_function)
 
 
-@app.route("/forgot-password")
-def ForgotPassword():
-    return render_template("/kite/forgot-password.html")
 
 
+### Application initialization
 if __name__ == "__main__":
     app.run(debug=True)
